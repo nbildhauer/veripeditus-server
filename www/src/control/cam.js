@@ -183,9 +183,7 @@ CamController = function() {
         log_debug("CamController received orientation change.");
 
         // Update AR style for all objects
-        $.each(self.gameobject_images, function(id, image) {
-            image.css(self.getARStyle(GameData.gameobjects[id]));
-        });
+        self.updateAllARStyles();
     };
 
     self.activate = function() {
@@ -200,6 +198,11 @@ CamController = function() {
         Device.stopCamera();
         log_debug("CamController deactivated.");
     };
+
+    // Recalculate all AR object style on resize of the container
+    $("#camview").resize(function() {
+        self.updateAllARStyles();
+    });
 };
 
 // Instantiate controller and register to services
