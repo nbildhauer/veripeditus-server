@@ -73,7 +73,7 @@ CamController = function() {
             var tz = perspective - Math.cos(angle) * (perspective * (distance / self.MAX_DISTANCE));
 
             // Generate transform functions
-            var rotation = "rotateY(" + (bearing_diff) + "deg)";
+            var rotation = "rotateY(" + (-bearing_diff) + "deg)";
             var offset = "translate3d(" + tx + "px, " + ty + "px, " + tz + "px)";
 
             // Generate CSS transform attributes
