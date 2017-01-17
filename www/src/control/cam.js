@@ -20,6 +20,7 @@
 CamController = function() {
     var self = this;
     self.name = "cam";
+    self.active = false;
 
     log_debug("Loading CamController.");
 
@@ -30,6 +31,8 @@ CamController = function() {
 
     // Called by DeviceService on camera stream change
     self.onCameraChanged = function() {
+        if (! self.active) return;
+
         log_debug("Camera stream changed. New URL: " + Device.cameraUrl);
 
         // Update stream URL of video view
@@ -39,7 +42,7 @@ CamController = function() {
         });
     };
 
-    this.getARStyle = function(gameobject) {
+    self.getARStyle = function(gameobject) {
         log_debug("Assembling AR style for gameobject id " + gameobject.id + ".");
 
         // Target object
@@ -93,6 +96,8 @@ CamController = function() {
 
     // Called by GameDataService on gameobject update
     self.onUpdatedGameObjects = function() {
+        if (! self.active) return;
+
         log_debug("CamController received update of gameobjects.");
 
         // Iterate over gameobjects and add images
@@ -160,6 +165,8 @@ CamController = function() {
 
     // Called by DeviceService on geolocation change
     self.onGeolocationChanged = function() {
+        if (! self.active) return;
+
         log_debug("CamController received geolocation change.");
 
         // Calculate view bounds
@@ -181,6 +188,8 @@ CamController = function() {
 
     // Called by DeviceService on orientation change
     self.onOrientationChanged = function() {
+        if (! self.active) return;
+
         log_debug("CamController received orientation change.");
 
         // Update AR style for all objects
@@ -188,20 +197,24 @@ CamController = function() {
     };
 
     self.activate = function() {
-        $("div#camview").show();;
+        $("div#camview").show();
         Device.startCamera();
         log_debug("CamController activated.");
+        self.active = true;
         self.updateAllARStyles();
     };
 
     self.deactivate = function() {
         $("div#camview").hide();
+        self.active = false;
         Device.stopCamera();
         log_debug("CamController deactivated.");
     };
 
     // Recalculate all AR object style on resize of the container
     $("#camview").resize(function() {
+        if (! self.active) return;
+
         self.updateAllARStyles();
     });
 };

@@ -20,6 +20,7 @@
 MapController = function() {
     var self = this;
     self.name = "map";
+    self.active = false;
 
     log_debug("Loading MapController.");
 
@@ -96,6 +97,8 @@ MapController = function() {
 
     // Called by GameDataService on gameobjects update
     self.onUpdatedGameObjects = function() {
+        if (! self.active) return;
+
         log_debug("MapController received update of gameobjects.");
 
         // Iterate over gameobjects and add map markers
@@ -173,6 +176,8 @@ MapController = function() {
 
     // Called by DeviceService on geolocation update
     self.onGeolocationChanged = function() {
+        if (! self.active) return;
+
         log_debug("MapController received geolocation update.");
 
         // Update position of own marker
@@ -227,11 +232,14 @@ MapController = function() {
 
     self.activate = function() {
         log_debug("MapController activated.");
+        self.active = true;
         $("div#map").show();
+        self.onUpdatedGameObjects();
     };
 
     self.deactivate = function() {
         log_debug("MapController deactivated.");
+        self.active = false;
         $("div#map").hide();
     };
 };
