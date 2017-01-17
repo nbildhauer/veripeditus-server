@@ -29,7 +29,7 @@ Veripeditus = {
     views: [],
     services: [],
     registerView: function(view) {
-        log_debug("Registering view " + view.constructor.name + ".");
+        log_debug("Registering view " + view.name + ".");
 
         this.views.push(view);
         view.deactivate();
@@ -37,10 +37,16 @@ Veripeditus = {
             this.currentView = view;
             view.activate();
         }
+        var i = this.views.indexOf(this.currentView);
+        i++;
+        if (i == this.views.length) {
+            i = 0;
+        }
+        $("#control-view img").attr("src", "img/ui/btn-" + this.views[i].name + ".svg");
         this.registerService(view);
     },
     registerService: function(service) {
-        log_debug("Registering service " + service.constructor.name + ".");
+        log_debug("Registering service " + service.name + ".");
 
         this.services.push(service);
     },
@@ -53,6 +59,11 @@ Veripeditus = {
         this.currentView.deactivate();
         this.currentView = this.views[i];
         this.currentView.activate();
+        i++;
+        if (i == this.views.length) {
+            i = 0;
+        }
+        $("#control-view img").attr("src", "img/ui/btn-" + this.views[i].name + ".svg");
     },
     currentView: undefined,
     debug: false

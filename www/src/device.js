@@ -19,6 +19,7 @@
 
 DeviceService = function() {
     var self = this;
+    self.name = "device";
 
     log_debug("Loading DeviceService.");
 

@@ -19,6 +19,7 @@
 
 MapController = function() {
     var self = this;
+    self.name = "map";
 
     log_debug("Loading MapController.");
 

@@ -19,6 +19,7 @@
 
 CamController = function() {
     var self = this;
+    self.name = "cam";
 
     log_debug("Loading CamController.");
 

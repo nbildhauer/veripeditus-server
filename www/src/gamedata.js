@@ -25,6 +25,7 @@ GameObject = function(id) {
 
 GameDataService = function() {
     var self = this;
+    self.name = "gamedata";
 
     log_debug("Loading GameDataService.");
 
