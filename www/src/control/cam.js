@@ -201,7 +201,7 @@ CamController = function() {
         Device.startCamera();
         log_debug("CamController activated.");
         self.active = true;
-        self.updateAllARStyles();
+        self.onUpdatedGameObjects();
     };
 
     self.deactivate = function() {
