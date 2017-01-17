@@ -18,7 +18,7 @@ from veripeditus import framework as f
 
 NAME = 'Veripeditus Test Game'
 DESCRIPTION = 'A useless test game bundled with the server framework'
-AUTHOR = 'Dominik George <nik@naturalnet.de>'
+AUTHOR = 'Dominik George <nik@naturalnet.de> Eike Jesinghaus <eike@naturalnet.de>'
 LICENSE = 'AGPL'
 VERSION = f.VERSION
 
@@ -26,7 +26,7 @@ class Player(f.Player):
     pass
 
 class Kangoo(f.NPC):
-    spawn_latlon = (0.00009, 0.0)
+    spawn_osm = {"highway": "bus_stop"}
     default_name = "Kangoo"
     default_image = "avatar_kangaroo"
 
