@@ -59,4 +59,4 @@ Veripeditus = {
 };
 
 // Uncomment to enable debugging in webapp
-Veripeditus.debug = true;
+//Veripeditus.debug = true;
