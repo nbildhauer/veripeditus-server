@@ -61,13 +61,13 @@ CamController = function() {
         var distance = own_latlng.distanceTo(gameobject_latlng);
         var bearing = own_latlng.bearingTo(gameobject_latlng);
         // Determine difference of bearing and device orientation
-        var bearing_diff = Device.orientation.heading - bearing;
+        var bearing_diff = bearing - Device.orientation.heading;
 
         log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
 
-        if (((-bearing_diff) % 360) > 270 || ((-bearing_diff) % 360) < 90) {
+        if (((bearing_diff % 360) > 270) || ((bearing_diff % 360) < 90)) {
             // Calculate offsets in 3D space in relation to camera
-            var angle = (((-bearing_diff) % 360) / 360) * L.LatLng.DEG_TO_RAD;
+            var angle = ((bearing_diff % 360) / 360) * L.LatLng.DEG_TO_RAD;
             var tx = Math.sin(angle) * (perspective * (distance / self.MAX_DISTANCE));
             var ty = 0;
             var tz = perspective - Math.cos(angle) * (perspective * (distance / self.MAX_DISTANCE));
@@ -130,6 +130,11 @@ CamController = function() {
                 log_debug("Found existing image.");
             }
 
+            // Update image style on size change
+            image.resize(function() {
+                image.css(self.getARStyle(gameobject));
+            });
+
             // Update style of image element
             image.css(self.getARStyle(gameobject));
         });
@@ -166,6 +171,13 @@ CamController = function() {
         GameData.setBounds(bounds[0], bounds[1]);
     };
 
+    // Recalculate all images
+    self.updateAllARStyles = function() {
+        $.each(self.gameobject_images, function(id, image) {
+            image.css(self.getARStyle(GameData.gameobjects[id]));
+        });
+    };
+
     // Called by DeviceService on orientation change
     self.onOrientationChanged = function() {
         log_debug("CamController received orientation change.");
@@ -180,6 +192,7 @@ CamController = function() {
         $("div#camview").show();;
         Device.startCamera();
         log_debug("CamController activated.");
+        self.updateAllARStyles();
     };
 
     self.deactivate = function() {
