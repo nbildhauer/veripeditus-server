@@ -80,8 +80,7 @@ DeviceService = function() {
         // Store watchId for later clearing
         self.watchId = window.navigator.geolocation.watchPosition($.throttle(500, function(newpos) {
             self.onLocationUpdate.call(self, newpos);
-        }),
-        self.onLocationError, self.locationOptions);
+        }), self.onLocationError, self.locationOptions);
 
         log_debug("Started watching for geolocation.");
     }
@@ -177,7 +176,6 @@ DeviceService = function() {
                 self.orientation.heading = Math.round(360 - heading);
             } else {
                 // Device is not lying flat, do some more magic
-
                 var x = event.beta * L.LatLng.DEG_TO_RAD;
                 var y = event.gamma * L.LatLng.DEG_TO_RAD;
                 var z = event.alpha * L.LatLng.DEG_TO_RAD;
@@ -185,7 +183,7 @@ DeviceService = function() {
                 var Vx = -Math.cos(z) * Math.sin(y) - Math.sin(z) * Math.sin(x) * Math.cos(y);
                 var Vy = -Math.sin(z) * Math.sin(y) + Math.cos(z) * Math.sin(x) * Math.cos(y);
 
-                var heading = Math.atan( Vx / Vy );
+                var heading = Math.atan(Vx / Vy);
                 if (Vy < 0) {
                     heading += Math.PI;
                 } else if (Vx < 0) {

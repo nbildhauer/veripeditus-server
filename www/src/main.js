@@ -33,7 +33,7 @@ Veripeditus = {
 
         this.views.push(view);
         view.deactivate();
-        if (! this.currentView) {
+        if (!this.currentView) {
             this.currentView = view;
             view.activate();
         }

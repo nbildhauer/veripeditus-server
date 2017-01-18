@@ -31,7 +31,7 @@ CamController = function() {
 
     // Called by DeviceService on camera stream change
     self.onCameraChanged = function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         log_debug("Camera stream changed. New URL: " + Device.cameraUrl);
 
@@ -102,7 +102,7 @@ CamController = function() {
 
     // Called by GameDataService on gameobject update
     self.onUpdatedGameObjects = function() {
-        if (! self.active) return;
+        if (!self.active) return;
         if (self.is_updating) return;
 
         log_debug("CamController received update of gameobjects.");
@@ -127,7 +127,7 @@ CamController = function() {
 
             // Look for already created image for gameobject id
             var image = self.gameobject_images[gameobject.id];
-            if (! image) {
+            if (!image) {
                 // Image does not exist
                 // Construct image element
                 image = $("<img>", {
@@ -176,7 +176,7 @@ CamController = function() {
 
     // Called by DeviceService on geolocation change
     self.onGeolocationChanged = function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         log_debug("CamController received geolocation change.");
 
@@ -205,7 +205,7 @@ CamController = function() {
 
     // Called by DeviceService on orientation change
     self.onOrientationChanged = function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         log_debug("CamController received orientation change.");
 
@@ -230,7 +230,7 @@ CamController = function() {
 
     // Recalculate all AR object style on resize of the container
     $("#camview").resize(function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         self.updateAllARStyles();
     });
