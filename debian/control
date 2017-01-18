@@ -2,29 +2,33 @@ Source: veripeditus
 Maintainer: Dominik George <nik@naturalnet.de>
 Section: python
 Priority: optional
-Build-Depends: dh-python,
- python3-setuptools (>= 0.6b3),
- python3,
+Build-Depends:
  debhelper (>= 9),
+ dh-python,
+ python3,
  python3-flask,
- python3-flask-sqlalchemy (>= 1.1.0),
- python3-sqlalchemy-utils,
  python3-flask-restless (>= 1.0),
+ python3-flask-sqlalchemy (>= 1.1.0),
  python3-gpxpy,
  python3-osmalchemy,
  python3-passlib,
+ python3-setuptools (>= 0.6b3),
  python3-shapely,
+ python3-sqlalchemy-utils,
 Standards-Version: 3.9.6
 
 Package: python3-veripeditus-server
 Architecture: all
-Depends: ${misc:Depends}, ${python:Depends},
+Depends:
  apache2 | httpd,
  dbconfig-common,
  dbconfig-pgsql,
  libapache2-mod-wsgi,
- python3-psycopg2
-Recommends: postgresql
+ python3-psycopg2,
+ ${misc:Depends},
+ ${python:Depends},
+Recommends:
+ postgresql,
 Suggest: python3-flask-compress
 Description: Veripeditus AR gaming engine (server component)
  Veripeditus (from Latin „veritas“ → „truth“ and „pedis“ → „foot“) is a
@@ -36,14 +40,16 @@ Description: Veripeditus AR gaming engine (server component)
 
 Package: veripeditus-web
 Architecture: all
-Depends: ${misc:Depends}, 
+Depends:
  apache2 | httpd,
  libjs-jquery,
- libjs-jquery-ui,
  libjs-jquery-throttle-debounce,
+ libjs-jquery-ui,
  libjs-leaflet,
  libjs-leaflet-markercluster,
-Recommends: javascript-common
+ ${misc:Depends},
+Recommends:
+ javascript-common,
 Description: Veripeditus AR gaming engine (web application)
  Veripeditus (from Latin „veritas“ → „truth“ and „pedis“ → „foot“) is a
  client/server augmented reality gaming engine and framework. It allows
