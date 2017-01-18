@@ -160,15 +160,6 @@ DeviceService = function() {
         heading: 0
     };
 
-    // Determine browser/screen orientation
-    self.browserOrientation = function() {
-        if (screen.orientation && screen.orientation.type) {
-            return screen.orientation.type;
-        } else {
-            return screen.orientation || screen.mozOrientation || screen.msOrientation;
-        }
-    };
-
     // Event handler for device oreintation changes
     self.handleOrientation = function(event) {
         // Store values
@@ -181,27 +172,28 @@ DeviceService = function() {
         if (event.heading) {
             self.orientation.heading = event.heading;
         } else {
-            var heading = event.alpha;
-            var orientation = self.browserOrientation();
-            var adjustment = 0;
-            if (self.defaultOrientation == "landscape") {
-                adjustment -= 90;
-            }
-            if (self.defaultOrientation != orientation.split("-")[0]) {
-                if (self.defaultOrientation == "landscape") {
-                    adjustment -= 270;
-                } else {
-                    adjustment -= 90;
+            if ((Math.abs(event.beta) < 10) && (Math.abs(event.gamma) < 10)) {
+                // Device is lying flat
+                self.orientation.heading = Math.round(360 - heading);
+            } else {
+                // Device is not lying flat, do some more magic
+
+                var x = event.beta * L.LatLng.DEG_TO_RAD;
+                var y = event.gamma * L.LatLng.DEG_TO_RAD;
+                var z = event.alpha * L.LatLng.DEG_TO_RAD;
+
+                var Vx = -Math.cos(z) * Math.sin(y) - Math.sin(z) * Math.sin(x) * Math.cos(y);
+                var Vy = -Math.sin(z) * Math.sin(y) + Math.cos(z) * Math.sin(x) * Math.cos(y);
+
+                var heading = Math.atan( Vx / Vy );
+                if (Vy < 0) {
+                    heading += Math.PI;
+                } else if (Vx < 0) {
+                    heading += 2 * Math.PI;
                 }
+
+                self.orientation.heading = heading / L.LatLng.DEG_TO_RAD;
             }
-            if (orientation.split("-")[1] == "secondary") {
-                adjustment -= 180;
-            }
-            heading = heading + adjustment;
-            if (heading < 0) {
-                heading = heading + 360;
-            }
-            self.orientation.heading = Math.round(360 - heading);
         }
 
         log_debug("Heading changed to " + self.orientation.heading + "°.");
