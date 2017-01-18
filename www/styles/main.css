@@ -66,6 +66,15 @@ div#control-overlay .control-round .control-round-icon {
 	pointer-events: none;
 }
 
+div#control-overlay .control-round .control-round-icon-overlay {
+	position: relative;
+	width: 60%;
+	height: 60%;
+	left: 20%;
+	top: -50%;
+	pointer-events: none;
+}
+
 div#arview {
 	position: absolute;
 	top: 0px;

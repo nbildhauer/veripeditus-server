@@ -105,6 +105,12 @@ UIService = function () {
         }
     };
 
+    self.needle = $("#compass-needle");
+    self.onOrientationChanged = function() {
+        self.needle.css("transform", "rotateZ(" + Device.orientation.heading + "deg)");
+        self.needle.css("-webkit-transform", "rotateZ(" + Device.orientation.heading + "deg)");
+    };
+
     $('div.control').on("click", self.control_click);
 };
 
