@@ -243,5 +243,7 @@ DeviceService = function() {
 };
 
 Device = new DeviceService();
+Veripeditus.registerService(Device);
+
 Device.startOrientation();
 Device.startLocation();
