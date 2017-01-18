@@ -19,44 +19,42 @@
 import os
 from setuptools import setup
 
-# Find out what version we are installing/building
-if 'VERIPEDITUS_BUILD_VERSION' in os.environ:
-    # First, look for environment variable
-    version = os.environ['VERIPEDITUS_BUILD_VERSION']
-elif os.path.isfile('VERSION'):
-    # Load from file
-    version = open('VERSION', 'r').read().strip()
-else:
-    # Use fallback
-    version = '0.1~unknown'
+with open('VERSION', 'r') as f:
+    version = f.read().strip()
 
 setup(
     name='Veripeditus',
     version=version,
     long_description=__doc__,
     packages=[
-              'veripeditus',
               'veripeditus.framework',
               'veripeditus.server',
               'veripeditus.game.test',
              ],
+    namespace_packages=[
+                        'veripeditus',
+                        'veripeditus.game',
+                       ],
     include_package_data=True,
     package_data={
-                  'veripeditus.server': ['data/*'],
+                  'veripeditus.framework': ['data/*'],
                  },
     zip_safe=False,
     install_requires=[
                       'Flask>=0.10',
-                      'Flask-Restless',
+                      'Flask-Restless>=1.0.0b2.dev0',
                       'Flask-SQLAlchemy',
-                      'SQLAlchemy-Utils',
+                      'gpxpy',
+                      'OSMAlchemy',
                       'passlib',
-                      'Wand',
+                      'Shapely',
+                      'SQLAlchemy>=1.1.0',
+                      'SQLAlchemy-Utils',
                      ],
-    test_suite = 'tests',
-    entry_points         = {
-                            'console_scripts': [
-                                                'veripeditus-standalone = veripeditus.server:server_main'
-                                               ]
-                           },
+    test_suite='test',
+    entry_points={
+                  'console_scripts': [
+                                      'veripeditus-standalone = veripeditus.server:server_main'
+                                     ]
+                 },
 )

@@ -3,7 +3,7 @@ Utility functions for framework components
 """
 
 # veripeditus-server - Server component for the Veripeditus game framework
-# Copyright (C) 2016  Dominik George <nik@naturalnet.de>
+# Copyright (C) 2016  Eike Tim Jesinghaus <eike@naturalnet.de>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
@@ -18,125 +18,72 @@ Utility functions for framework components
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-import importlib
-import inspect
+import json
 import os
-import pkgutil
+import random
 import sys
-from wand.image import Image
 
-class NoSuchResourceError(Exception):
-    """ Thrown when a resource cannot be found in a game data directory. """
+from flask import g
+from gpxpy import geo
+from shapely.geometry import Point, Polygon
 
-    pass
-
-def get_game_module():
-    """ Get the module object of the calling game, or None """
-
-    # Get full call stack; skip first two frames (inspect and us)
-    _stack = inspect.stack()
-    for _frame in  _stack[1:]:
-        # Get module from frame
-        _module = inspect.getmodule(_frame[0])
-
-        # Check if module is outside of us
-        if _module and not _module.__name__.startswith("veripeditus.framework"):
-            return _module
-
-def get_game_module_name():
-    """ Get the module name of the calling game, or None """
-
-    return get_game_module().__name__
-
-def get_game_data_file_name(restype, basename):
+def get_image_path(game_mod, basename):
     """
-    Get the full path of a game data resource.
+    Get the path for an image file (.svg or .png, in order).
 
     Keyword arguments:
 
-    restype -- type of the resource to be loaded; one of:
-                image - for image files
-                text - for text files
-    basename -- basename of the file to find; without extension
-                so a logical decision can be made by type
+    game_mod -- reference to the game module
+    basename -- name of the file without its extension
     """
 
-    # Get the calling module
-    _module = get_game_module_name()
-    # Get the path of the module implementation
-    _modpath = os.path.dirname(sys.modules[_module].__file__)
-    # Get path of data directory for given type
-    _respath = os.path.join(_modpath, "data", restype)
+    # Get module paths of framework and the provided game
+    _path_framework = os.path.dirname(sys.modules[__name__].__file__)
+    _path_game = os.path.dirname(game_mod.__file__)
 
-    # Logic depending on resource type to be loaded
-    if restype == "image":
-        # Check whether a PNG file exists
-        _file = os.path.join(_respath, "%s.png" % basename)
-        if os.path.isfile(_file):
-            return _file
-    elif restype == "text":
-        # Check whether a TXT file exists
-        _file = os.path.join(_respath, "%s.txt" % basename)
-        if os.path.isfile(_file):
-            return _file
+    # Get data sub-directories
+    _respath_framework = os.path.join(_path_framework, "data")
+    _respath_game = os.path.join(_path_game, "data")
 
-    # If we got here, no logic matched
-    raise NoSuchResourceError("No resource found for game %s, type %s, called %s."
-                              % (_module, restype, basename))
+    # Define extensions and paths to search
+    _extensions = (".svg", ".png")
+    _paths = (_respath_framework, _respath_game)
 
-def get_game_data_file(restype, basename, mode=None):
-    """
-    Get a file object of a game data resource, in read-only mode.
+    # Define fallback image if nothing else is found
+    _fallback = os.path.join(_respath_framework, "dummy.svg")
 
-    Keyword arguments:
+    # Generate a list of all possibilities
+    _possibilities = ([os.path.join(_path, basename+_extension)
+                       for _extension in _extensions
+                       for _path in _paths] +
+                      [_fallback])
 
-    restype -- type of the resource to be loaded; one of:
-               image - for image files
-    basename -- basename of the file to find; without extension
-                so a logical decision can be made by type
-    mode -- optional argument to manuallz set desired file mode
-    """
+    # Iterate over all possibilities and return the first existing resource
+    for _possibility in _possibilities:
+        if os.path.isfile(_possibility):
+            return _possibility
 
-    # Get the file path
-    _filename = get_game_data_file_name(restype, basename)
+def get_gameobject_distance(obj1, obj2):
+    return geo.haversine_distance(obj1.latitude, obj1.longitude,
+                                        obj2.latitude, obj2.longitude)
 
-    # Determine file mode
-    if not mode:
-        _mode = "r"
-        if restype in ["image"]:
-            # These resource types are binary
-            _mode += "b"
-    else:
-        # Mode was given as argument
-        _mode = mode
+def current_player():
+    return None if g.user is None else g.user.current_player
 
-    if _mode.endswith('b'):
-        return open(_filename, _mode)
-    else:
-        return open(_filename, _mode, encoding='utf-8')
+def send_action(action, gameobject, message):
+    return json.dumps({
+                       "action": action,
+                       "gameobject": gameobject.id,
+                       "message": message
+                      })
 
-def get_game_data_object(restype, basename):
-    """
-    Get a file object of a game data resource, in read-only mode.
+def random_point_in_polygon(points):
+    polygon = Polygon(points)
+    bounds = polygon.bounds
 
-    Keyword arguments:
+    while True:
+        point = Point(random.uniform(bounds[0], bounds[1]), random.uniform(bounds[2], bounds[3]))
+        if polygon.contains(point):
+            break
 
-    restype -- type of the resource to be loaded; one of:
-               image - for image files
-    basename -- basename of the file to find; without extension
-                so a logical decision can be made by type
-    """
-
-    # Get the file object
-    _file = get_game_data_file(restype, basename)
-
-    # Check resource type and create a matching object
-    _obj = None
-    if restype == "image":
-        _obj = Image(file=_file)
-    elif restype == "text":
-        _obj = _file.readlines()
-
-    # Close file and return
-    _file.close()
-    return _obj
+    return point.bounds[0:2]

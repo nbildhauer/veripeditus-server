@@ -1,3 +1,5 @@
+""" Utility code for authentication in the Veripeditus server """
+
 # veripeditus-server - Server component for the Veripeditus game framework
 # Copyright (C) 2016  Dominik George <nik@naturalnet.de>
 #
@@ -14,21 +16,10 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-from veripeditus import framework as f
+from enum import Enum
 
-NAME = 'Veripeditus Test Game'
-DESCRIPTION = 'A useless test game bundled with the server framework'
-AUTHOR = 'Dominik George <nik@naturalnet.de> Eike Jesinghaus <eike@naturalnet.de>'
-LICENSE = 'AGPL'
-VERSION = f.VERSION
+class Roles(Enum):
+    """ Enumeration of all available roles. """
 
-class Player(f.Player):
-    pass
-
-class Kangoo(f.NPC):
-    spawn_osm = {"highway": "bus_stop"}
-    default_name = "Kangoo"
-    default_image = "avatar_kangaroo"
-
-    def on_talk(self):
-        return self.say("foo")
+    player = "PLAYER"
+    admin = "ADMIN"

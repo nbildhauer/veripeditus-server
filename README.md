@@ -1,6 +1,4 @@
-# Veripeditus AR Game Server
-
-Server component for the Veripeditus augmented-reality game framework
+# Veripeditus - The Free AR Game Framework for Everyone
 
 ## What is Veripeditus?
 
@@ -8,15 +6,6 @@ Veripeditus (from Latin „veritas“ → „truth“ and „pedis“ → „foo
 client/server augmented reality gaming engine and framework. It allows
 writing game „cartridges“ for the server, which it can then run. Players
 access the game while being outside with a mobile device.
-
-## Reference games
-
-While developing the framework, two reference games are developed:
-
- * [Verimagica](https://github.com/Veripeditus/game-verimagica),
-   a fantasy game about magic, designed by Eike
- * [Ingressio](https://github.com/Veripeditus/game-ingressio),
-   a clone of the popular Ingress game, designed by Nik
 
 ## Development
 
@@ -32,15 +21,6 @@ Python. There are a few design/development principles:
  * pylint is to be used and obeyed
  * Code must at all times be compatible with Python versions in Debian
    stable and Debian unstable
-
-### Code state
-
-The CI state represents the results from unit tests, pylint and coverage
-assessment.
-
-[![Build Status](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/badges/build.png?b=master)](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/build-status/master)
-[![Code Coverage](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/?branch=master)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Veripeditus/veripeditus-server/?branch=master)
 
 ## Features of the web frontend
 
@@ -66,8 +46,8 @@ Rumour has it that there is also a version for iOS.
 ## Testing system
 
 A testing system is available at http://nightly.veripeditus.org/ . This
-machine is a Docker container that is auto-deployed from the latest Git
-commit.
+machine runs the current development version of Veripeditus and is
+auto-deployed from Git.
 
 It is unstable and might be broken. It will also lose data regularly.
 
@@ -84,7 +64,7 @@ The authors and lead developers of Veripeditus are…
 
 ## Licence
 
-The project is licenced under the GNU Affero GeneralPublic License
+The project is licenced under the GNU Affero General Public License
 version 3 or later. All artwork and other non-code parts are also
 dual-licenced under the Creative Commons-Attribution-Share Alike 4.0
 Unported licence (or later). See the

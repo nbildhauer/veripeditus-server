@@ -14,4 +14,7 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+from veripeditus.framework.model import *
+from veripeditus.framework.util import current_player
+
 VERSION = '0.1'
