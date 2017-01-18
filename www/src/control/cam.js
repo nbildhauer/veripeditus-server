@@ -66,10 +66,14 @@ CamController = function() {
         var bearing = own_latlng.bearingTo(gameobject_latlng);
         // Determine difference of bearing and device orientation
         var bearing_diff = bearing - Device.orientation.heading;
+        if (bearing_diff < 0) {
+            bearing_diff += 360;
+        }
+        bearing_diff %= 360;
 
         log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
 
-        if (((bearing_diff % 360) > 270) || ((bearing_diff % 360) < 90)) {
+        if ((bearing_diff > 270) || (bearing_diff < 90)) {
             // Calculate offsets in 3D space in relation to camera
             var angle = ((bearing_diff % 360) / 360) * L.LatLng.DEG_TO_RAD;
             var tx = Math.sin(angle) * (perspective * (distance / self.MAX_DISTANCE));
