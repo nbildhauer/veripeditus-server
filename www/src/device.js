@@ -151,42 +151,6 @@ DeviceService = function() {
         log_debug("Stopped camera stream.");
     }
 
-    // Fullscreen state
-    self.fullscreen = {
-        enabled: false
-    };
-
-    // Subscribe to fullscreen change event
-    document.onmozfullscreenchange = function() {
-        if (document.mozFullScreenElement) {
-            self.fullscreen.enabled = true;
-        } else {
-            self.fullscreen.enabled = false;
-        }
-    };
-
-    // Start fullscreen mode
-    self.startFullscreen = function() {
-        if (document.body.requestFullScreen) {
-            document.body.requestFullScreen();
-        } else if (document.body.mozRequestFullScreen) {
-            document.body.mozRequestFullScreen();
-        } else if (document.body.webkitRequestFullScreen) {
-            document.body.webkitRequestFullScreen();
-        }
-    };
-
-    // Stop fullscreen mode
-    self.stopFullscreen = function() {
-        if (document.cancelFullScreen) {
-            document.cancelFullScreen();
-        } else if (document.mozCancelFullScreen) {
-            document.mozCancelFullScreen();
-        } else if (document.webkitCancelFullScreen) {
-            document.webkitCancelFullScreen();
-        }
-    };
-
     // Storage for orientation data
     self.orientation = {
         absolute: false,
