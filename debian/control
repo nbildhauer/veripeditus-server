@@ -7,11 +7,13 @@ Build-Depends: dh-python,
  python3,
  debhelper (>= 9),
  python3-flask,
- python3-flask-sqlalchemy,
+ python3-flask-sqlalchemy (>= 1.1.0),
  python3-sqlalchemy-utils,
- python3-flask-restless,
+ python3-flask-restless (>= 1.0),
+ python3-gpxpy,
+ python3-osmalchemy,
  python3-passlib,
- python3-wand
+ python3-shapely,
 Standards-Version: 3.9.6
 
 Package: python3-veripeditus-server
@@ -36,11 +38,11 @@ Package: veripeditus-web
 Architecture: all
 Depends: ${misc:Depends}, 
  apache2 | httpd,
- libjs-angularjs,
- libjs-angular-gettext,
-# libjs-angular-ui-bootstrap,
- libjs-bootstrap,
- libjs-leaflet
+ libjs-jquery,
+ libjs-jquery-ui,
+ libjs-jquery-throttle-debounce,
+ libjs-leaflet,
+ libjs-leaflet-markercluster,
 Recommends: javascript-common
 Description: Veripeditus AR gaming engine (web application)
  Veripeditus (from Latin „veritas“ → „truth“ and „pedis“ → „foot“) is a
