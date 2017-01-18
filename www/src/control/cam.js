@@ -86,7 +86,6 @@ CamController = function() {
 
             // Generate CSS transform attributes
             style['transform'] = rotation + " " + offset;
-            style['-webkit-transform'] = rotation + " " + offset;
         } else {
             // Object is behind us and not visible
             style['display'] = 'none';
