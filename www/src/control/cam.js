@@ -94,11 +94,17 @@ CamController = function() {
     // Already created images for gameobjects will be stored here.
     self.gameobject_images = {};
 
+    // Flag to determine whether DOM/gameobject updating is in progress
+    self.is_updating = false;
+
     // Called by GameDataService on gameobject update
     self.onUpdatedGameObjects = function() {
         if (! self.active) return;
+        if (self.is_updating) return;
 
         log_debug("CamController received update of gameobjects.");
+
+        self.is_updating = true;
 
         // Iterate over gameobjects and add images
         $.each(GameData.gameobjects, function(id, gameobject) {
@@ -161,6 +167,8 @@ CamController = function() {
                 log_debug("No longer on map, removing.");
             }
         });
+
+        self.is_updating = false;
     };
 
     // Called by DeviceService on geolocation change
@@ -181,9 +189,15 @@ CamController = function() {
 
     // Recalculate all images
     self.updateAllARStyles = function() {
+        if (self.is_updating) return;
+
+        self.is_updating = true;
+
         $.each(self.gameobject_images, function(id, image) {
             image.css(self.getARStyle(GameData.gameobjects[id]));
         });
+
+        self.is_updating = false;
     };
 
     // Called by DeviceService on orientation change
