@@ -78,9 +78,9 @@ DeviceService = function() {
     // Start watching Geolocation
     self.startLocation = function() {
         // Store watchId for later clearing
-        self.watchId = window.navigator.geolocation.watchPosition(function(newpos) {
+        self.watchId = window.navigator.geolocation.watchPosition($.throttle(500, function(newpos) {
             self.onLocationUpdate.call(self, newpos);
-        },
+        }),
         self.onLocationError, self.locationOptions);
 
         log_debug("Started watching for geolocation.");
@@ -256,7 +256,7 @@ DeviceService = function() {
     };
     self.startOrientation = function() {
         // Add global event handler
-        window.addEventListener('deviceorientation', handleOrientation, true);
+        window.addEventListener('deviceorientation', $.throttle(500, handleOrientation), true);
 
         log_debug("Started watching for orientation changes.");
     };
