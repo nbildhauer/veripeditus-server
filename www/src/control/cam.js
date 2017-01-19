@@ -235,13 +235,6 @@ CamController = function() {
         Device.stopCamera();
         log_debug("CamController deactivated.");
     };
-
-    // Recalculate all AR object style on resize of the container
-    $("#camview").resize(function() {
-        if (!self.active) return;
-
-        self.updateAllARStyles();
-    });
 };
 
 // Instantiate controller and register to services
