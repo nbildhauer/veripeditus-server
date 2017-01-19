@@ -69,5 +69,9 @@ Veripeditus = {
     debug: false
 };
 
-// Uncomment to enable debugging in webapp
-//Veripeditus.debug = true;
+if (window.URLSearchParams) {
+    var params = new URLSearchParams(window.location.search);
+    if (params.get("debug") == "true") {
+        Veripeditus.debug = true;
+    }
+}
