@@ -78,7 +78,7 @@ CamController = function() {
 
         if ((bearing_diff > 270) || (bearing_diff < 90)) {
             // Calculate offsets in 3D space in relation to camera
-            var angle = ((bearing_diff % 360) / 360) * L.LatLng.DEG_TO_RAD;
+            var angle = (bearing_diff / 360) * L.LatLng.DEG_TO_RAD;
             var tx = Math.sin(angle) * (self.perspective * (distance / self.MAX_DISTANCE));
             var ty = 0;
             var tz = self.perspective - Math.cos(angle) * (2 * self.perspective * (distance / self.MAX_DISTANCE));
