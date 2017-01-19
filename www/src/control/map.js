@@ -111,12 +111,6 @@ MapController = function() {
                 return;
             }
 
-            // Skip if object is own player
-            // FIXME Hasn't this moved to isonmap with VISIBLE_SELF?
-            if (id == GameData.current_player_id) {
-                return;
-            }
-
             // Look for already created marker for self gameobject id
             var marker = self.gameobject_markers[gameobject.id];
             if (marker) {

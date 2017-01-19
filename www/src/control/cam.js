@@ -125,8 +125,9 @@ CamController = function() {
                 return;
             }
 
-            // Skip if object is own player
-            // FIXME isn't this replaced by isonmap with VISIBLE_SELF?
+            // Skip if object is own player. This is not covered by
+            // HIDE_SELF in isonmap because even if it is True, we
+            // don't want ourselves in a first person view.
             if (id == GameData.current_player_id) {
                 return;
             }
