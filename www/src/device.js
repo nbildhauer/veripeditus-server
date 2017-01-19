@@ -173,7 +173,7 @@ DeviceService = function() {
         } else {
             if ((Math.abs(event.beta) < 10) && (Math.abs(event.gamma) < 10)) {
                 // Device is lying flat
-                self.orientation.heading = Math.round(360 - heading);
+                self.orientation.heading = Math.round(360 - event.alpha);
             } else {
                 // Device is not lying flat, do some more magic
                 var x = event.beta * L.LatLng.DEG_TO_RAD;
