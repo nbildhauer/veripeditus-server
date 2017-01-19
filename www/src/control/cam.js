@@ -26,8 +26,13 @@ CamController = function() {
 
     self.MAX_DISTANCE = 100;
 
-    // Find video view
+    // Find video view and AR view
     self.cam = $("#cam");
+    self.arview = $("#arview");
+
+    // Set perspective
+    self.perspective = screen.width / 2;
+    self.arview.css("perspective", self.perspective);
 
     // Called by DeviceService on camera stream change
     self.onCameraChanged = function() {
@@ -48,13 +53,11 @@ CamController = function() {
         // Target object
         var style = {}
 
-        // Get perspective value
-        // FIXME get dynamically
-        var perspective = 800;
-
         // Center image first
-        var width = $("#argameobject-" + gameobject.id).width();
-        style['left'] = ((screen.width - width) / 2) + "px";
+        if (! (gameobject.id in self.gameobject_widths)) {
+            self.gameobject_widths[gameobject.id] = $("#argameobject-" + gameobject.id).width();
+        }
+        style['left'] = ((screen.width - self.gameobject_widths[gameobject.id]) / 2) + "px";
 
         // Get own LatLng
         var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
@@ -76,9 +79,9 @@ CamController = function() {
         if ((bearing_diff > 270) || (bearing_diff < 90)) {
             // Calculate offsets in 3D space in relation to camera
             var angle = ((bearing_diff % 360) / 360) * L.LatLng.DEG_TO_RAD;
-            var tx = Math.sin(angle) * (perspective * (distance / self.MAX_DISTANCE));
+            var tx = Math.sin(angle) * (self.perspective * (distance / self.MAX_DISTANCE));
             var ty = 0;
-            var tz = perspective - Math.cos(angle) * (perspective * (distance / self.MAX_DISTANCE));
+            var tz = self.perspective - Math.cos(angle) * (2 * self.perspective * (distance / self.MAX_DISTANCE));
 
             // Generate transform functions
             var rotation = "rotateY(" + (-bearing_diff) + "deg)";
@@ -86,6 +89,8 @@ CamController = function() {
 
             // Generate CSS transform attributes
             style['transform'] = rotation + " " + offset;
+            // Unhide object
+            style['display'] = '';
         } else {
             // Object is behind us and not visible
             style['display'] = 'none';
@@ -96,6 +101,7 @@ CamController = function() {
 
     // Already created images for gameobjects will be stored here.
     self.gameobject_images = {};
+    self.gameobject_widths = {};
 
     // Flag to determine whether DOM/gameobject updating is in progress
     self.is_updating = false;
@@ -137,7 +143,7 @@ CamController = function() {
                 });
 
                 // Add image to DOM
-                $("div#arview").append(image);
+                self.arview.append(image);
                 self.gameobject_images[gameobject.id] = image;
 
                 log_debug("Created image.");
@@ -162,11 +168,13 @@ CamController = function() {
                 // Remove image if object vanished from gameobjects
                 image.remove();
                 delete self.gameobject_images[id];
+                delete self.gameobject_widths[id];
                 log_debug("No longer exists, removing.");
             } else if (!GameData.gameobjects[id].attributes.isonmap) {
                 // Remove image if object is not visible on map anymore
                 image.remove();
                 delete self.gameobject_images[id];
+                delete self.gameobject_widths[id];
                 log_debug("No longer on map, removing.");
             }
         });
