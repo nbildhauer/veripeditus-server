@@ -13,7 +13,7 @@ want to contribute, feel free to do so!
 Steps to contribute
 -------------------
 
- 1. FInd something you want to do in the issue tracker.
+ 1. Find something you want to do in the issue tracker.
  2. Read the issue description and any comments carefully.
  3. Try looking at the relevant sources.
  4. Ask any questions that may arise.
@@ -42,7 +42,7 @@ contribute, as long as it is cool.
 A note on libraries
 -------------------
 
-Please try to avoid adding dependncies if possible. If you really need
+Please try to avoid adding dependencies if possible. If you really need
 to add a dependency, please try to use something that is available as a
 Debian package. If you can't, please discuss the problem in the issue
 you are working on!
