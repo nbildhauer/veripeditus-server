@@ -96,7 +96,7 @@ CamController = function() {
             log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°. " + rotation + "," + offset);
             // Generate CSS transform attributes
             //style['transform'] = rotation + " " + offset;
-            rv['container'] = offset;
+            rv['container'] = { 'transform': offset };
             style['transform'] = rotation;
             // Unhide object
             style['display'] = '';
