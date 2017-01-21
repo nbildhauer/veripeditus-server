@@ -203,14 +203,14 @@ CamController = function() {
 
             if ($.inArray(id, Object.keys(GameData.gameobjects)) == -1) {
                 // Remove image if object vanished from gameobjects
-                image.remove();
+                image.parent().remove();
                 delete self.gameobject_images[id];
                 delete self.gameobject_widths[id];
                 delete self.gameobject_heights[id];
                 log_debug("No longer exists, removing.");
             } else if (!GameData.gameobjects[id].attributes.isonmap) {
                 // Remove image if object is not visible on map anymore
-                image.remove();
+                image.parent().remove();
                 delete self.gameobject_images[id];
                 delete self.gameobject_widths[id];
                 delete self.gameobject_heights[id];
