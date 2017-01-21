@@ -222,12 +222,68 @@ CamController = function() {
         self.updateAllARStyles();
     };
 
+    self.handleDebugKeys = function(event) {
+        var FORWARD = "w".charCodeAt(0);
+        var BACKWARD = "s".charCodeAt(0);
+        var LEFT = "a".charCodeAt(0);
+        var RIGHT = "d".charCodeAt(0);
+
+        if (event.which == LEFT) {
+            fake_orientation = {
+                alpha: 0,
+                beta: 0,
+                gamma: 0,
+                absolute: false,
+                heading: (Device.orientation.heading + (Device.orientation.heading < 5 ? 360 : 0)) - 5
+            };
+            Device.handleOrientation(fake_orientation);
+        } else if (event.which == RIGHT) {
+            fake_orientation = {
+                alpha: 0,
+                beta: 0,
+                gamma: 0,
+                absolute: false,
+                heading: (Device.orientation.heading + 5) % 360
+            };
+            Device.handleOrientation(fake_orientation);
+        } else if (event.which == FORWARD) {
+            var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
+            var new_latlng = L.GeometryUtil.destination(own_latlng, Device.orientation.heading, 1);
+
+            fake_pos = {
+                "timestamp": Date.now(),
+                "coords": {
+                    "latitude": new_latlng.lat,
+                    "longitude": new_latlng.lng,
+                    "accuracy": 1
+                }
+            };
+            Device.onLocationUpdate(fake_pos);
+        } else if (event.which == BACKWARD) {
+            var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
+            var new_latlng = L.GeometryUtil.destination(own_latlng, (Device.orientation.heading + 360) % 360, 1);
+
+            fake_pos = {
+                "timestamp": Date.now(),
+                "coords": {
+                    "latitude": new_latlng.lat,
+                    "longitude": new_latlng.lng,
+                    "accuracy": 1
+                }
+            };
+            Device.onLocationUpdate(fake_pos);
+        }
+    };
+
     self.activate = function() {
         $("div#camview").show();
         Device.startCamera();
         log_debug("CamController activated.");
         self.active = true;
         self.onUpdatedGameObjects();
+        if (Veripeditus.debug) {
+            $(document).keypress(self.handleDebugKeys);
+        }
     };
 
     self.deactivate = function() {
@@ -235,6 +291,10 @@ CamController = function() {
         self.active = false;
         Device.stopCamera();
         log_debug("CamController deactivated.");
+
+        if (Veripeditus.debug) {
+            $(document).unbind("keypress", self.handleDebugKeys);
+        }
     };
 };
 
