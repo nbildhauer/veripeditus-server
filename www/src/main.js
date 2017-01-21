@@ -70,7 +70,8 @@ Veripeditus = {
 };
 
 if (window.URLSearchParams) {
-    var params = new URLSearchParams(window.location.search);
+    var search_param = '' + window.location.search;
+    var params = new URLSearchParams(search_param.replace(/^\?/, ''));
     if (params.get("debug") == "true") {
         Veripeditus.debug = true;
     }
