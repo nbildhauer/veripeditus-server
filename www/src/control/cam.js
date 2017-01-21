@@ -82,13 +82,13 @@ CamController = function() {
 
         if (((bearing_diff > 270) || (bearing_diff < 90)) && (distance <= self.MAX_DISTANCE)) {
             // Calculate offsets in 3D space in relation to camera
-            var angle = (bearing_diff / 360) * L.LatLng.DEG_TO_RAD;
+            var angle = bearing_diff * L.LatLng.DEG_TO_RAD;
             var tx = Math.sin(angle) * self.perspective;
             var ty = 0;
-            var tz = self.perspective - Math.cos(angle) * 2 * self.perspective * (distance / self.MAX_DISTANCE);
+            var tz = - Math.cos(angle) * self.perspective * (distance / self.MAX_DISTANCE);
 
             // Generate transform functions
-            var rotation = "rotateY(" + (Math.sign(tz) * bearing_diff) + "deg)";
+            var rotation = "rotateY(" + (-bearing_diff) + "deg)";
             var offset = "translate3d(" + tx + "px, " + ty + "px, " + tz + "px)";
 
             // Generate CSS transform attributes
