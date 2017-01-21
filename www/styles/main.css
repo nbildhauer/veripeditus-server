@@ -84,7 +84,7 @@ div#arview {
 }
 
 div#arview img.argameobject {
-	height: 95%;
+	height: 50%;
 	max-width: 95%;
 	position: absolute;
 	transform-style: preserve-3d;
