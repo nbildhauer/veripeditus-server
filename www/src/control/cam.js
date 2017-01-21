@@ -51,10 +51,10 @@ CamController = function() {
     self.getARStyles = function(gameobject) {
         log_debug("Assembling AR styles for gameobject id " + gameobject.id + ".");
 
-        // Return values
-        var rv = {};
         // Target object
         var style = {};
+        // Parent of target object
+        var image_div = {};
 
         // Center image first
         if (! (gameobject.id in self.gameobject_widths)) {
@@ -96,7 +96,7 @@ CamController = function() {
             log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°. " + rotation + "," + offset);
             // Generate CSS transform attributes
             //style['transform'] = rotation + " " + offset;
-            rv['container'] = { 'transform': offset };
+            image_div['transform'] = offset;
             style['transform'] = rotation;
             // Unhide object
             style['display'] = '';
@@ -106,8 +106,10 @@ CamController = function() {
             style['display'] = 'none';
         }
 
-        rv['image'] = style;
-        return rv;
+        return {
+            'container': image_div,
+            'image': style
+        };
     };
 
     // Already created images for gameobjects will be stored here.
