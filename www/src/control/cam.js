@@ -58,6 +58,10 @@ CamController = function() {
             self.gameobject_widths[gameobject.id] = $("#argameobject-" + gameobject.id).width();
         }
         style['left'] = ((screen.width - self.gameobject_widths[gameobject.id]) / 2) + "px";
+        if (! (gameobject.id in self.gameobject_heights)) {
+            self.gameobject_heights[gameobject.id] = $("#argameobject-" + gameobject.id).height();
+        }
+        style['top'] = ((screen.height - self.gameobject_heights[gameobject.id]) / 2) + "px";
 
         // Get own LatLng
         var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
@@ -102,6 +106,7 @@ CamController = function() {
     // Already created images for gameobjects will be stored here.
     self.gameobject_images = {};
     self.gameobject_widths = {};
+    self.gameobject_heights = {};
 
     // Flag to determine whether DOM/gameobject updating is in progress
     self.is_updating = false;
@@ -170,12 +175,14 @@ CamController = function() {
                 image.remove();
                 delete self.gameobject_images[id];
                 delete self.gameobject_widths[id];
+                delete self.gameobject_heights[id];
                 log_debug("No longer exists, removing.");
             } else if (!GameData.gameobjects[id].attributes.isonmap) {
                 // Remove image if object is not visible on map anymore
                 image.remove();
                 delete self.gameobject_images[id];
                 delete self.gameobject_widths[id];
+                delete self.gameobject_heights[id];
                 log_debug("No longer on map, removing.");
             }
         });
