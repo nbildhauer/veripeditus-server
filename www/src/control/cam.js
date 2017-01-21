@@ -235,7 +235,7 @@ CamController = function() {
     };
 
     self.updateOneARStyle = function (image, gameobject) {
-        var styles = self.getARStyle(gameobject);
+        var styles = self.getARStyles(gameobject);
 
         image.parent().css(styles['container']);
         image.css(styles['image']);
