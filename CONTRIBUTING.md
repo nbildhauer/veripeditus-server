@@ -39,6 +39,11 @@ will take place until we really did!).
 That means that you do not have to worry too much about the code you
 contribute, as long as it is cool.
 
+The first line of every commit message should be a full sentence in
+imperative form, starting with a capital letter and ending with a full
+stop. If a commit touches an issue, it should mention it as “[Aa]dvances
+#nnn” or, if it finally fixes the issue, as “[Cc]loses #nnn”.
+
 A note on libraries
 -------------------
 
