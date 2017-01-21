@@ -248,7 +248,7 @@ CamController = function() {
             Device.handleOrientation(fake_orientation);
         } else if (event.which == FORWARD) {
             var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
-            var new_latlng = L.GeometryUtil.destination(own_latlng, Device.orientation.heading, 1);
+            var new_latlng = L.GeometryUtil.destination(own_latlng, Device.orientation.heading, 5);
 
             fake_pos = {
                 "timestamp": Date.now(),
@@ -261,7 +261,7 @@ CamController = function() {
             Device.onLocationUpdate(fake_pos);
         } else if (event.which == BACKWARD) {
             var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
-            var new_latlng = L.GeometryUtil.destination(own_latlng, (Device.orientation.heading + 360) % 360, 1);
+            var new_latlng = L.GeometryUtil.destination(own_latlng, (Device.orientation.heading + 180) % 360, 5);
 
             fake_pos = {
                 "timestamp": Date.now(),
