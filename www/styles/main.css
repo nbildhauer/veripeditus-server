@@ -90,6 +90,7 @@ div#arview img.argameobject {
 	position: absolute;
 	transform-style: preserve-3d;
 	pointer-events: auto;
+	transition: transform 500ms linear;
 }
 
 p.map_popup_image, p.map_popup_image img {
