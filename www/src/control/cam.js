@@ -2,6 +2,7 @@
  * veripeditus-web - Web frontend to the veripeditus server
  * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
  * Copyright (C) 2017  Eike Tim Jesinghaus <eike@naturalnet.de>
+ * Copyright (c) 2017  mirabilos <thorsten.glaser@teckids.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -47,11 +48,13 @@ CamController = function() {
         });
     };
 
-    self.getARStyle = function(gameobject) {
-        log_debug("Assembling AR style for gameobject id " + gameobject.id + ".");
+    self.getARStyles = function(gameobject) {
+        log_debug("Assembling AR styles for gameobject id " + gameobject.id + ".");
 
+        // Return values
+        var rv = {};
         // Target object
-        var style = {}
+        var style = {};
 
         // Center image first
         if (! (gameobject.id in self.gameobject_widths)) {
@@ -92,7 +95,9 @@ CamController = function() {
 
             log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°. " + rotation + "," + offset);
             // Generate CSS transform attributes
-            style['transform'] = rotation + " " + offset;
+            //style['transform'] = rotation + " " + offset;
+            rv['container'] = offset;
+            style['transform'] = rotation;
             // Unhide object
             style['display'] = '';
         } else {
@@ -101,7 +106,8 @@ CamController = function() {
             style['display'] = 'none';
         }
 
-        return style;
+        rv['image'] = style;
+        return rv;
     };
 
     // Already created images for gameobjects will be stored here.
@@ -151,7 +157,9 @@ CamController = function() {
 
 
                 // Add image to DOM
-                self.arview.append(image);
+                var image_div = $('<div>');
+                image_div.append(image);
+                self.arview.append(image_div);
                 self.gameobject_images[gameobject.id] = image;
 
                 // Attach click action
@@ -179,13 +187,11 @@ CamController = function() {
                 log_debug("Found existing image.");
             }
 
-            // Update image style on size change
-            image.resize(function() {
-                image.css(self.getARStyle(gameobject));
+            // Update image style on size change, and once right now
+            image.resize(function () {
+                self.updateOneARStyle(image, gameobject);
             });
-
-            // Update style of image element
-            image.css(self.getARStyle(gameobject));
+            self.updateOneARStyle(image, gameobject);
         });
 
         // Iterate over found images and remove everything not found in gameobjects
@@ -228,14 +234,21 @@ CamController = function() {
         GameData.setBounds(bounds[0], bounds[1]);
     };
 
+    self.updateOneARStyle = function (image, gameobject) {
+        var styles = self.getARStyle(gameobject);
+
+        image.parent().css(styles['container']);
+        image.css(styles['image']);
+    };
+
     // Recalculate all images
     self.updateAllARStyles = function() {
         if (self.is_updating) return;
 
         self.is_updating = true;
 
-        $.each(self.gameobject_images, function(id, image) {
-            image.css(self.getARStyle(GameData.gameobjects[id]));
+        $.each(self.gameobject_images, function (id, image) {
+            self.updateOneARStyle(image, GameData.gameobjects[id]);
         });
 
         self.is_updating = false;
