@@ -60,11 +60,11 @@ CamController = function() {
         if (! (gameobject.id in self.gameobject_widths)) {
             self.gameobject_widths[gameobject.id] = $("#argameobject-" + gameobject.id).width();
         }
-        style['left'] = ((screen.width - self.gameobject_widths[gameobject.id]) / 2) + "px";
+        image_div['left'] = ((screen.width - self.gameobject_widths[gameobject.id]) / 2) + "px";
         if (! (gameobject.id in self.gameobject_heights)) {
             self.gameobject_heights[gameobject.id] = $("#argameobject-" + gameobject.id).height();
         }
-        style['top'] = ((screen.height - self.gameobject_heights[gameobject.id]) / 2) + "px";
+        image_div['top'] = ((screen.height - self.gameobject_heights[gameobject.id]) / 2) + "px";
 
         // Get own LatLng
         var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
