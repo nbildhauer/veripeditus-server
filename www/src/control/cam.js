@@ -76,7 +76,7 @@ CamController = function() {
 
         log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
 
-        if ((bearing_diff > 270) || (bearing_diff < 90)) {
+        if (((bearing_diff > 270) || (bearing_diff < 90)) && (distance > self.MAX_DISTANCE)) {
             // Calculate offsets in 3D space in relation to camera
             var angle = (bearing_diff / 360) * L.LatLng.DEG_TO_RAD;
             var tx = Math.sin(angle) * (self.perspective * (distance / self.MAX_DISTANCE));
