@@ -59,7 +59,7 @@ MapController = function() {
                     var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
 
                     // Get bearing
-                    var bearing = own_latlng.bearingTo(event.latlng);
+                    var bearing = L.GeometryUtil.bearing(own_latlng, event.latlng);
                     fake_orientation = {
                         alpha: 0,
                         beta: 0,

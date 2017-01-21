@@ -70,7 +70,7 @@ CamController = function() {
 
         // Get distance and bearing
         var distance = own_latlng.distanceTo(gameobject_latlng);
-        var bearing = own_latlng.bearingTo(gameobject_latlng);
+        var bearing = L.GeometryUtil.bearing(own_latlng, gameobject_latlng);
         // Determine difference of bearing and device orientation
         var bearing_diff = bearing - Device.orientation.heading;
         if (bearing_diff < 0) {
