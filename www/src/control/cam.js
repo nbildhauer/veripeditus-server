@@ -79,9 +79,6 @@ CamController = function() {
         while (bearing_diff < -180) {
             bearing_diff += 360;
         }
-
-        log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
-
         if ((bearing_diff > -90) && (bearing_diff < 90) && (distance <= self.MAX_DISTANCE)) {
             // Calculate offsets in 3D space in relation to camera
             var angle = bearing_diff * L.LatLng.DEG_TO_RAD;
@@ -93,11 +90,13 @@ CamController = function() {
             var rotation = "rotateY(" + (-bearing_diff) + "deg)";
             var offset = "translate3d(" + tx + "px, " + ty + "px, " + -tz + "px)";
 
+            log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°. " + rotation + "," + offset);
             // Generate CSS transform attributes
             style['transform'] = rotation + " " + offset;
             // Unhide object
             style['display'] = '';
         } else {
+            log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
             // Object is behind us and not visible
             style['display'] = 'none';
         }
