@@ -159,7 +159,9 @@ CamController = function() {
 
 
                 // Add image to DOM
-                var image_div = $('<div>');
+                var image_div = $('<div>', {
+                    'class': 'argameobjectwrapper',
+                });
                 image_div.append(image);
                 self.arview.append(image_div);
                 self.gameobject_images[gameobject.id] = image;
