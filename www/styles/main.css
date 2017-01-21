@@ -88,6 +88,7 @@ div#arview img.argameobject {
 	max-width: 95%;
 	position: absolute;
 	transform-style: preserve-3d;
+	transition: transform 500ms linear;
 }
 
 p.map_popup_image, p.map_popup_image img {
