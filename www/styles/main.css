@@ -92,7 +92,7 @@ div#arview img.argameobject {
 
 div#arview div.argameobjectwrapper {
 	position: absolute;
-    height: 100%;
+	height: 100%;
 	transform-style: preserve-3d;
 	pointer-events: auto;
 	transition: transform 500ms linear;
