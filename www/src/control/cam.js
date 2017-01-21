@@ -148,9 +148,30 @@ CamController = function() {
                     src: '/api/v2/gameobject/' + gameobject.id + '/image_raw'
                 });
 
+
                 // Add image to DOM
                 self.arview.append(image);
                 self.gameobject_images[gameobject.id] = image;
+
+                // Attach click action
+                $(document).on("click", "#argameobject-" + gameobject.id, function() {
+                    var dialog = $('div#dialog');
+                    dialog.empty();
+                    var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + "/image_raw' /></p>";
+                    if (gameobject.attributes.gameobject_type == "gameobject_item") {
+                        // FIXME also check for collectible
+                        html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
+                    }
+                    if (gameobject.attributes.gameobject_type == "gameobject_npc") {
+                        // FIXME also check for talkable
+                        html += "<button class='map_popup_button' onClick='CamView.npc_talk(" + gameobject.id + ")'>Talk</button>";
+                    }
+                    var elem = $(html);
+                    dialog.append(elem);
+                    dialog.dialog({
+                        title: gameobject.attributes.name
+                    });
+                });
 
                 log_debug("Created image.");
             } else {
@@ -279,6 +300,34 @@ CamController = function() {
                 }
             };
             Device.onLocationUpdate(fake_pos);
+        }
+    };
+
+    // Pass item_collect to GameData with self reference
+    self.item_collect = function(id) {
+        GameData.item_collect(id, self);
+    };
+
+    // Pass npc_talk to GameData with self reference
+    self.npc_talk = function(id) {
+        GameData.npc_talk(id, self);
+    };
+
+    // Called by GameData routines to close the popup something was called from.
+    self.onGameObjectActionDone = function(data) {
+        var dialog = $('div#dialog');
+        dialog.dialog("close");
+
+        // Show any message as a dialog
+        // FIXME come up with something prettyer
+        if (data.message) {
+            dialog.empty();
+            var html = "<p>" + data.message + "</p>";
+            var elem = $(html);
+            dialog.append(elem);
+            dialog.dialog({
+                title: GameData.gameobjects[data.gameobject].attributes.name
+            });
         }
     };
 

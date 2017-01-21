@@ -81,6 +81,7 @@ div#arview {
 	perspective-origin: 50% 50%;
 	transform-origin: 50% 50%;
 	perspective: 800px;
+	pointer-events: none;
 }
 
 div#arview img.argameobject {
@@ -88,6 +89,7 @@ div#arview img.argameobject {
 	max-width: 95%;
 	position: absolute;
 	transform-style: preserve-3d;
+	pointer-events: auto;
 }
 
 p.map_popup_image, p.map_popup_image img {
