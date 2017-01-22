@@ -122,7 +122,7 @@ UIService = function () {
                     $.each(GameData.gameobjects[GameData.current_player_id].relationships.inventory.data, function (i, item) {
                         var real_item = GameData.gameobjects[item.id];
                         var html = "<tr>";
-                        html += "<td><img src='/api/v2/gameobject/" + real_item.id + "/image_raw' /></td>";
+                        html += "<td><img src='/api/v2/gameobject/" + real_item.id + '/image_raw/' + real_item.attributes.image + "' /></td>";
                         html += "<td>" + real_item.attributes.name + "</td>";
                         html += "</tr>";
                         var elem = $(html);
