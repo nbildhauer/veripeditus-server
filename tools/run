@@ -1,4 +1,7 @@
 #!/bin/sh
+#-
+# Run with '-H 0.0.0.0' to allow others access.
+
 set -ex
 cd "$(dirname "$0")/.."
 PATH=$HOME/.local/bin:$PATH
