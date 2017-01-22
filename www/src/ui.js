@@ -48,7 +48,7 @@ UIService = function() {
             });
 
             img.click(function () {
-                GameData.doRequestJSON('GET', '/api/v2/gameobject/' +
+                GameData.doRequestSimple('/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/set_image/' + id, function () {
                     dialog.dialog("close");
