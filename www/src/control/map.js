@@ -122,7 +122,8 @@ MapController = function() {
                 // Marker does not exist
                 // Construct marker icon from gameobject image
                 var icon = L.icon({
-                    'iconUrl': '/api/v2/gameobject/' + gameobject.id + '/image_raw',
+                    'iconUrl': '/api/v2/gameobject/' + gameobject.id +
+                      '/image_raw/' + gameobject.attributes.image,
                     'iconSize': [32, 32],
                 });
 
