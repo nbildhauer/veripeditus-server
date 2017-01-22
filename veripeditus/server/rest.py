@@ -182,8 +182,8 @@ def _get_source_tarball():
 
     # Build response for download
     res = make_response(contents)
-    res["Content-Type"] = "application/x-xz"
-    res["Content-Disposition"] = "attachment; filename=\"%s\"" % filename
+    res.headers["Content-Type"] = "application/x-xz"
+    res.headers["Content-Disposition"] = "attachment; filename=\"%s\"" % filename
 
     # Return HTTP response
     return res
