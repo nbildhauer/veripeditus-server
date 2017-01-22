@@ -139,8 +139,18 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         return self.distance_to(g.user.current_player)
 
     @api_method(authenticated=False)
-    def image_raw(self):
-        with open(self.image_path, "rb") as file:
+    def image_raw(self, name=None):
+        # Take path of current image if name is not given
+        # If name is given take its path instead
+        if name is None:
+            image_path = self.image_path
+        elif name in self.available_images():
+            image_path = get_image_path(self.world.game.module, name)
+        else:
+            # Return None if given name is not available for this object
+            return None
+
+        with open(image_path, "rb") as file:
             return file.read()
 
     @api_method(authenticated=True)
