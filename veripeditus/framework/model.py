@@ -150,15 +150,15 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         if self.available_images_pattern is not None:
             # Get data path of current player's module
             data_path_player = get_data_path(g.user.current_player.world.game.module)
-            # Get data path of the server module
-            data_path_server = get_data_path()
+            # Get data path of the framework module
+            data_path_framework = get_data_path()
 
-            for data_path in (data_path_player, data_path_server):
+            for data_path in (data_path_player, data_path_framework):
                 # Get images in data path matching the pattern
                 res += glob(os.path.join(data_path, self.available_images_pattern))
 
-        # Get basenames of every file
-        basenames = [os.path.basename(r) for r in res]
+        # Get basenames of every file without extension
+        basenames = [os.path.basename(r).split(os.path.extsep)[:-1] for r in res]
 
         # Return files in json format
         return json.dumps(basenames)
