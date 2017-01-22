@@ -32,7 +32,7 @@ CamController = function () {
     self.arview = $("#arview");
 
     // Set perspective
-    self.perspective = screen.width / 2;
+    self.perspective = window.innerWidth / 2;
     self.arview.css("perspective", self.perspective);
 
     // Called by DeviceService on camera stream change
@@ -60,11 +60,11 @@ CamController = function () {
         if (! (gameobject.id in self.gameobject_widths)) {
             self.gameobject_widths[gameobject.id] = $("#argameobject-" + gameobject.id).width();
         }
-        image_div['left'] = ((screen.width - self.gameobject_widths[gameobject.id]) / 2) + "px";
+        image_div['left'] = ((window.innerWidth - self.gameobject_widths[gameobject.id]) / 2) + "px";
         if (! (gameobject.id in self.gameobject_heights)) {
             self.gameobject_heights[gameobject.id] = $("#argameobject-" + gameobject.id).height();
         }
-        image_div['top'] = ((screen.height - self.gameobject_heights[gameobject.id]) / 2) + "px";
+        image_div['top'] = ((window.innerHeight - self.gameobject_heights[gameobject.id]) / 2) + "px";
 
         // Get own LatLng
         var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
@@ -340,8 +340,8 @@ CamController = function () {
                     at: 'left top',
                     of: window
                 },
-                width: screen.width,
-                height: screen.height,
+                width: window.innerWidth,
+                height: window.innerHeight,
                 resizable: false,
                 draggable: false,
                 modal: true,

@@ -356,8 +356,8 @@ $(document).bind("ajaxError", function (req, status, error) {
                 at: 'left top',
                 of: window
             },
-            width: screen.width,
-            height: screen.height,
+            width: window.innerWidth,
+            height: window.innerHeight,
             resizable: false,
             draggable: false,
             modal: true,

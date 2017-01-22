@@ -33,7 +33,7 @@ UIService = function () {
     var avatars_handler = function (data) {
         var av = $('#dialog-avatars');
         var imgpfx = '/api/v2/gameobject/' + GameData.current_player_id + '/image_raw/';
-        var imgheight = screen.height * 3 / 10;
+        var imgheight = window.innerHeight * 3 / 10;
         var curr = GameData.gameobjects[GameData.current_player_id].attributes.image;
 
         data.sort();
@@ -73,7 +73,7 @@ UIService = function () {
 
             // Code to run before the dialogue is rendered (and sized)
             if (view == 'avatars') {
-                $('#dialog-avatars').height(screen.height * 1 / 3);
+                $('#dialog-avatars').height(window.innerHeight * 1 / 3);
             } else if (view == 'popup') {
                 opts.title = opts.gameobject.attributes.name;
             }
@@ -83,8 +83,8 @@ UIService = function () {
                 at: 'left top',
                 of: window
             };
-            opts.width = screen.width;
-            opts.height = screen.height;
+            opts.width = window.innerWidth;
+            opts.height = window.innerHeight;
             opts.resizable = false;
             opts.draggable = false;
             opts.modal = true;
@@ -143,12 +143,12 @@ UIService = function () {
                     $('#dialog-player-logout-tabs-profile-avatar-change').click(function () {
                         dialog.dialog("close");
                         return self.render_view('avatars', {
-                            width: (screen.width * 2 / 3),
+                            width: (window.innerWidth * 2 / 3),
                         });
                     });
                     $('#dialog-player-logout-tabs-profile-avatar-image').attr('src', '/api/v2/gameobject/' + GameData.current_player_id + '/image_raw/' + GameData.gameobjects[GameData.current_player_id].attributes.image)
                     //XXX FIXME: consider maximum width vs. dialogue width
-                    .attr('height', screen.height * 1 / 4);
+                    .attr('height', window.innerHeight * 1 / 4);
 
                     // Generate world list
                     var worlds_select = $('select#worlds');
