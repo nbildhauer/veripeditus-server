@@ -24,7 +24,8 @@ UIService = function() {
 
     var avatars_handler = function (data) {
         var av = $('#dialog-avatars');
-        av.text(data);
+        data.sort();
+        av.text(GameData.gameobjects[GameData.current_player_id].attributes.image + '|' + data);
     };
 
     self.render_view = function (view, opts) {
