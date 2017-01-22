@@ -23,6 +23,7 @@ framework and all known games in compliance with the AGPL.
 
 from glob import glob
 import os
+import sys
 
 from veripeditus.server.util import get_games
 
