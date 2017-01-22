@@ -97,6 +97,8 @@ CamController = function () {
             // Generate CSS transform attributes
             image_div['transform'] = offset;
             style['transform'] = rotation;
+            // Sort z-index of objects by distance
+            style['z-index'] = Math.round(distance * 100);
             // Unhide object
             style['display'] = '';
         } else {
