@@ -22,6 +22,14 @@ UIService = function() {
     var self = this;
     self.name = "ui";
 
+    var dialog = $('div#dialog');
+
+    var profile_tabs = {
+        'inventory': 0,
+        'profile': 1,
+        'world': 2,
+    };
+
     var avatars_handler = function (data) {
         var av = $('#dialog-avatars');
         var imgpfx = '/api/v2/gameobject/' + GameData.current_player_id +
@@ -41,13 +49,17 @@ UIService = function() {
 
             img.click(function () {
                 alert('Chose image ID: ' + id);
+                dialog.dialog("close");
+                return self.render_view('player', {
+                    'active_tab': profile_tabs['profile'],
+                    'width': /* restore default */ 300,
+                });
             });
             av.append(img);
         });
     };
 
     self.render_view = function (view, opts) {
-        var dialog = $('div#dialog');
         opts = opts || {};
         dialog.load("html/views/" + view + ".html", function () {
             var head = $('div#dialog h1');
@@ -63,7 +75,11 @@ UIService = function() {
 
             // UI magic
             if (view == "player") {
-                $('#dialog-player-logout-tabs').tabs();
+                var active_tab = opts.active_tab || 0;
+
+                $('#dialog-player-logout-tabs').tabs({
+                    'active': active_tab,
+                });
 
                 $('button#dialog-player-login-button').click(function () {
                     var username = $('#dialog-player-login-username').val();
