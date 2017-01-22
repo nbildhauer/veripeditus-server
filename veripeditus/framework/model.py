@@ -16,7 +16,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from collections import Sequence
+from glob import glob
 from numbers import Real
+import json
 import random
 
 from flask import g, redirect
@@ -30,7 +32,7 @@ from sqlalchemy.sql import and_
 from veripeditus.framework.util import get_image_path, get_gameobject_distance, random_point_in_polygon, send_action
 from veripeditus.server.app import DB, OA
 from veripeditus.server.model import Base, World
-from veripeditus.server.util import api_method
+from veripeditus.server.util import api_method, get_data_path
 
 class _GameObjectMeta(type(Base)):
     """ Meta-class to allow generation of dynamic mapper args.
@@ -108,6 +110,8 @@ class GameObject(Base, metaclass=_GameObjectMeta):
 
     distance_max = None
 
+    available_images_pattern = None
+
     @property
     def gameobject_type(self):
         # Return type of gameobject
@@ -137,6 +141,25 @@ class GameObject(Base, metaclass=_GameObjectMeta):
     def image_raw(self):
         with open(self.image_path, "rb") as file:
             return file.read()
+
+    @api_method(authenticated=True)
+    def available_images(self):
+        res = []
+        if self.available_images_pattern is not None:
+            # Get data path of current player's module
+            data_path_player = get_data_path(g.user.current_player.game.module)
+            # Get data path of the server module
+            data_path_server = get_data_path()
+
+            for data_path in (data_path_player, data_path_server):
+                # Get images in data path matching the pattern
+                res += glob("%s/%s" % (data_path, pattern))
+
+        # Get basenames of every file
+        basenames = [os.path.basename(r) for r in res]
+
+        # Return files in json format
+        return json.dumps(basenames)
 
     @classmethod
     def spawn(cls, world=None):
@@ -286,6 +309,8 @@ class Player(GameObject):
     user = DB.relationship("User", backref=DB.backref("players",
                                                       lazy="dynamic"),
                            foreign_keys=[user_id])
+
+    available_images_pattern = "avatar_*"
 
     def __init__(self, **kwargs):
         GameObject.__init__(self, **kwargs)
