@@ -33,6 +33,8 @@ UIService = function() {
 
             // UI magic
             if (view == "player") {
+                $('#dialog-player-logout-tabs').tabs();
+
                 $('button#dialog-player-login-button').click(function () {
                     var username = $('#dialog-player-login-username').val();
                     var password = $('#dialog-player-login-password').val();
