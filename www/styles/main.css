@@ -130,3 +130,19 @@ table#inventory-table {
 table#inventory-table td img {
 	width: 32px;
 }
+
+div#dialog-avatars {
+	white-space: nowrap;
+}
+
+.avatar-current {
+	padding: 1px;
+	border: 2px solid green;
+	margin: 0px 0.42em;
+}
+
+.avatar-available {
+	padding: 1px;
+	border: 2px dotted blue;
+	margin: 0px 0.42em;
+}

@@ -24,8 +24,26 @@ UIService = function() {
 
     var avatars_handler = function (data) {
         var av = $('#dialog-avatars');
+        var imgpfx = '/api/v2/gameobject/' + GameData.current_player_id +
+          '/image_raw/';
+        var imgheight = screen.height * 3 / 10;
+        var curr = GameData.gameobjects[GameData.current_player_id].attributes.image;
+
         data.sort();
-        av.text(GameData.gameobjects[GameData.current_player_id].attributes.image + '|' + data);
+        $.each(data, function (number, id) {
+            var imgcls = (id == curr) ? 'avatar-current' : 'avatar-available';
+            var img = $('<img>', {
+                'class': imgcls,
+                'src': imgpfx + id,
+                'alt': id,
+                'height': imgheight,
+            });
+
+            img.click(function () {
+                alert('Chose image ID: ' + id);
+            });
+            av.append(img);
+        });
     };
 
     self.render_view = function (view, opts) {
@@ -35,6 +53,12 @@ UIService = function() {
             var head = $('div#dialog h1');
             opts.title = head.text();
             head.remove();
+
+            // Code to run before the dialogue is rendered (and sized)
+            if (view == "avatars") {
+                $('#dialog-avatars').height(screen.height * 1 / 3);
+            }
+
             dialog.dialog(opts);
 
             // UI magic
