@@ -30,7 +30,7 @@ from veripeditus.framework.model import GameObject
 from veripeditus.server.app import APP, DB, OA
 from veripeditus.server.control import needs_authentication, _check_auth
 from veripeditus.server.model import User, World, Game
-from veripeditus.server.sources import get_sources
+from veripeditus.server.sources import get_sources, sources_to_tarball
 from veripeditus.server.util import guess_mime_type
 
 # Columns to include in all endpoints/models
@@ -168,6 +168,6 @@ def _register_user():
         # FIXME proper error
         return ("", 409)
 
-@APP.route("/api/v2/sources")
-def _get_sources():
-    return json.dumps(get_sources())
+@APP.route("/api/v2/source_tarball")
+def _get_source_tarball():
+    return sources_to_tarball(get_sources())

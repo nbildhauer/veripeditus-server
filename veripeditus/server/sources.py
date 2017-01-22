@@ -22,8 +22,10 @@ framework and all known games in compliance with the AGPL.
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 from glob import glob
+from io import BytesIO
 import os
 import sys
+import tarfile
 
 from veripeditus.server.util import get_games
 
@@ -63,3 +65,28 @@ def get_sources(modules=_RELEVANT_MODULES, patterns=_RELEVANT_PATTERNS):
 
     # Return resulting dictionary
     return res
+
+def sources_to_tarball(sources):
+    """ Convert a source dictionary into a tarball.
+
+    Takes a source dictionary from get_sources and builds a tarball from
+    it.
+    """
+
+    # Open an in-memory file
+    memfile = BytesIO()
+
+    # Assemble tarball
+    with tarfile.open(mode="x:xz", fileobj=memfile) as tar:
+        for module_name, module_sources in sources:
+            for file_name, file_sources in module_sources:
+                tarinfo = tarfile.TarInfo(name="/".join(module_name, file_name))
+                tarinfo.size = len(file_sources)
+                tarinfo.uid = tarinfo.gid = 0
+                tarinfo.uname = tarinfo.gname = "root"
+                tarinfo.type = tarinfo.REGTYPE
+                tar.addfile(tarinfo, file_sources)
+
+    # Seek to beginning, get contents and return
+    memfile.seek(0, 0)
+    return memfile.read()
