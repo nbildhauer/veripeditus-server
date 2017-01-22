@@ -239,7 +239,7 @@ GameDataService = function() {
         }
     };
 
-    self.updateSelf = function() {
+    self.updateSelf = function (cb) {
         log_debug("Updating own player item.");
 
         // Request own player item
@@ -247,6 +247,9 @@ GameDataService = function() {
             self.current_player_id = data.data.id;
             self.gameobjects[data.data.id] = data.data;
             self.updateGameObjects();
+            if (cb) {
+                cb();
+            }
         });
 
         // Request list of worlds

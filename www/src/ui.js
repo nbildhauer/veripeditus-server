@@ -48,14 +48,16 @@ UIService = function() {
             });
 
             img.click(function () {
+                av.text('Loading…');
                 GameData.doRequestSimple('/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/set_image/' + id, function () {
-                    dialog.dialog("close");
-                    GameData.updateSelf();
-                    return self.render_view('player', {
-                        'active_tab': profile_tabs['profile'],
-                        'width': /* restore default */ 300,
+                    GameData.updateSelf(function () {
+                        dialog.dialog("close");
+                        self.render_view('player', {
+                            'active_tab': profile_tabs['profile'],
+                            'width': /* restore default */ 300,
+                        });
                     });
                 });
             });
@@ -127,15 +129,12 @@ UIService = function() {
                             width: (screen.width * 2 / 3),
                         });
                     });
-                    var profile_avatar = $('#dialog-player-logout-tabs-profile-avatar-image');
-                    // Reset first
-                    profile_avatar
-                    .attr('src', 'img/ui/btn-player.svg')
+                    $('#dialog-player-logout-tabs-profile-avatar-image')
+                    .attr('src', '/api/v2/gameobject/' +
+                      GameData.current_player_id + '/image_raw/' +
+                      GameData.gameobjects[GameData.current_player_id].attributes.image)
                       //XXX TODO: consider maximum width vs. dialogue width
                     .attr('height', screen.height * 1 / 4);
-                    // Now reload
-                    profile_avatar.attr('src', '/api/v2/gameobject/' +
-                      GameData.current_player_id + '/image_raw');
 
                     // Generate world list
                     var worlds_select = $('select#worlds');
