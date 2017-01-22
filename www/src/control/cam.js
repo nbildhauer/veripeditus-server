@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-CamController = function() {
+CamController = function () {
     var self = this;
     self.name = "cam";
     self.active = false;
@@ -36,19 +36,19 @@ CamController = function() {
     self.arview.css("perspective", self.perspective);
 
     // Called by DeviceService on camera stream change
-    self.onCameraChanged = function() {
+    self.onCameraChanged = function () {
         if (!self.active) return;
 
         log_debug("Camera stream changed. New URL: " + Device.cameraUrl);
 
         // Update stream URL of video view
         self.cam.attr("src", Device.cameraUrl);
-        self.cam.on("loadedmetadata", function() {
+        self.cam.on("loadedmetadata", function () {
             self.cam.play();
         });
     };
 
-    self.getARStyles = function(gameobject) {
+    self.getARStyles = function (gameobject) {
         log_debug("Assembling AR styles for gameobject id " + gameobject.id + ".");
 
         // Target object
@@ -120,7 +120,7 @@ CamController = function() {
     self.is_updating = false;
 
     // Called by GameDataService on gameobject update
-    self.onUpdatedGameObjects = function() {
+    self.onUpdatedGameObjects = function () {
         if (!self.active) return;
         if (self.is_updating) return;
 
@@ -129,7 +129,7 @@ CamController = function() {
         self.is_updating = true;
 
         // Iterate over gameobjects and add images
-        $.each(GameData.gameobjects, function(id, gameobject) {
+        $.each(GameData.gameobjects, function (id, gameobject) {
             log_debug("Inspecting gameobject id " + id + ".");
 
             // Check whether item should be shown
@@ -177,14 +177,14 @@ CamController = function() {
             }
 
             // Update image style on size change, and once right now
-            image.resize(function() {
+            image.resize(function () {
                 self.updateOneARStyle(image, gameobject);
             });
             self.updateOneARStyle(image, gameobject);
         });
 
         // Iterate over found images and remove everything not found in gameobjects
-        $.each(self.gameobject_images, function(id, image) {
+        $.each(self.gameobject_images, function (id, image) {
             log_debug("Inspecting gameobject id " + id + ".");
 
             if ($.inArray(id, Object.keys(GameData.gameobjects)) == -1) {
@@ -208,7 +208,7 @@ CamController = function() {
     };
 
     // Called by DeviceService on geolocation change
-    self.onGeolocationChanged = function() {
+    self.onGeolocationChanged = function () {
         if (!self.active) return;
 
         log_debug("CamController received geolocation change.");
@@ -223,7 +223,7 @@ CamController = function() {
         GameData.setBounds(bounds[0], bounds[1]);
     };
 
-    self.updateOneARStyle = function(image, gameobject) {
+    self.updateOneARStyle = function (image, gameobject) {
         var styles = self.getARStyles(gameobject);
 
         image.parent().css(styles['container']);
@@ -231,12 +231,12 @@ CamController = function() {
     };
 
     // Recalculate all images
-    self.updateAllARStyles = function() {
+    self.updateAllARStyles = function () {
         if (self.is_updating) return;
 
         self.is_updating = true;
 
-        $.each(self.gameobject_images, function(id, image) {
+        $.each(self.gameobject_images, function (id, image) {
             self.updateOneARStyle(image, GameData.gameobjects[id]);
         });
 
@@ -244,7 +244,7 @@ CamController = function() {
     };
 
     // Called by DeviceService on orientation change
-    self.onOrientationChanged = function() {
+    self.onOrientationChanged = function () {
         if (!self.active) return;
 
         log_debug("CamController received orientation change.");
@@ -253,7 +253,7 @@ CamController = function() {
         self.updateAllARStyles();
     };
 
-    self.handleDebugKeys = function(event) {
+    self.handleDebugKeys = function (event) {
         var FORWARD = "w".charCodeAt(0);
         var BACKWARD = "s".charCodeAt(0);
         var LEFT = "a".charCodeAt(0);
@@ -307,17 +307,17 @@ CamController = function() {
     };
 
     // Pass item_collect to GameData with self reference
-    self.item_collect = function(id) {
+    self.item_collect = function (id) {
         GameData.item_collect(id, self);
     };
 
     // Pass npc_talk to GameData with self reference
-    self.npc_talk = function(id) {
+    self.npc_talk = function (id) {
         GameData.npc_talk(id, self);
     };
 
     // Called by GameData routines to close the popup something was called from.
-    self.onGameObjectActionDone = function(data) {
+    self.onGameObjectActionDone = function (data) {
         var dialog = $('div#dialog');
         dialog.dialog("close");
 
@@ -334,7 +334,7 @@ CamController = function() {
         }
     };
 
-    self.activate = function() {
+    self.activate = function () {
         $("div#camview").show();
         Device.startCamera();
         log_debug("CamController activated.");
@@ -345,7 +345,7 @@ CamController = function() {
         }
     };
 
-    self.deactivate = function() {
+    self.deactivate = function () {
         $("div#camview").hide();
         self.active = false;
         Device.stopCamera();

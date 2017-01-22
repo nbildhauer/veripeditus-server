@@ -18,7 +18,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-UIService = function() {
+UIService = function () {
     var self = this;
     self.name = "ui";
 
@@ -32,8 +32,7 @@ UIService = function() {
 
     var avatars_handler = function (data) {
         var av = $('#dialog-avatars');
-        var imgpfx = '/api/v2/gameobject/' + GameData.current_player_id +
-          '/image_raw/';
+        var imgpfx = '/api/v2/gameobject/' + GameData.current_player_id + '/image_raw/';
         var imgheight = screen.height * 3 / 10;
         var curr = GameData.gameobjects[GameData.current_player_id].attributes.image;
 
@@ -49,14 +48,14 @@ UIService = function() {
 
             img.click(function () {
                 av.text('Loading…');
-                GameData.doRequestSimple('/api/v2/gameobject/' +
-                  GameData.current_player_id +
-                  '/set_image/' + id, function () {
+                GameData.doRequestSimple('/api/v2/gameobject/' + GameData.current_player_id + '/set_image/' + id, function () {
                     GameData.updateSelf(function () {
                         dialog.dialog("close");
                         self.render_view('player', {
                             'active_tab': profile_tabs['profile'],
-                            'width': /* restore default */ 300,
+                            'width':
+                            /* restore default */
+                            300,
                         });
                     });
                 });
@@ -131,11 +130,8 @@ UIService = function() {
                             width: (screen.width * 2 / 3),
                         });
                     });
-                    $('#dialog-player-logout-tabs-profile-avatar-image')
-                    .attr('src', '/api/v2/gameobject/' +
-                      GameData.current_player_id + '/image_raw/' +
-                      GameData.gameobjects[GameData.current_player_id].attributes.image)
-                      //XXX FIXME: consider maximum width vs. dialogue width
+                    $('#dialog-player-logout-tabs-profile-avatar-image').attr('src', '/api/v2/gameobject/' + GameData.current_player_id + '/image_raw/' + GameData.gameobjects[GameData.current_player_id].attributes.image)
+                    //XXX FIXME: consider maximum width vs. dialogue width
                     .attr('height', screen.height * 1 / 4);
 
                     // Generate world list
@@ -168,16 +164,13 @@ UIService = function() {
                 }
                 // end of “player” view
             } else if (view == 'avatars') {
-                GameData.doRequestJSON('GET', '/api/v2/gameobject/' +
-                  GameData.current_player_id +
-                  '/available_images', avatars_handler);
+                GameData.doRequestJSON('GET', '/api/v2/gameobject/' + GameData.current_player_id + '/available_images', avatars_handler);
                 // end of “avatars” view
             } else if (view == 'popup') {
                 var gameobject = opts.gameobject;
 
                 //XXX FIXME: move this all to an HTML fragment
-                var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" +
-                  gameobject.id + '/image_raw/' + gameobject.attributes.image + "' /></p>";
+                var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + '/image_raw/' + gameobject.attributes.image + "' /></p>";
                 if (gameobject.attributes.gameobject_type == "gameobject_item") {
                     // FIXME also check for collectible
                     html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
@@ -193,7 +186,7 @@ UIService = function() {
         });
     };
 
-    self.control_click = function() {
+    self.control_click = function () {
         var dialogs = ["player"];
 
         var view = $(this).attr("id").substr(8);
@@ -205,7 +198,7 @@ UIService = function() {
     };
 
     self.needle = $("#compass-needle");
-    self.onOrientationChanged = function() {
+    self.onOrientationChanged = function () {
         self.needle.css("transform", "rotateZ(" + Device.orientation.heading + "deg)");
     };
 
