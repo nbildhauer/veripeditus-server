@@ -53,6 +53,7 @@ UIService = function() {
                 });
 
                 if (localStorage.getItem("username")) {
+                    // Player is logged in
                     $("#dialog-player-login").hide();
                     $("#dialog-player-logout").show();
 
@@ -92,9 +93,11 @@ UIService = function() {
                         GameData.joinWorld(worlds_select.val());
                     });
                 } else {
+                    // Player is not logged in
                     $("#dialog-player-login").show();
                     $("#dialog-player-logout").hide();
                 }
+                // end of “player” view
             }
         });
     };
