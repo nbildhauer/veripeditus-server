@@ -69,6 +69,11 @@ UIService = function() {
                         $('table#inventory-table').append(elem);
                     });
 
+                    // Insert profile
+                    $('#dialog-player-logout-tabs-profile-avatar-image').attr('src',
+                      '/api/v2/gameobject/' + GameData.current_player_id +
+                      '/image_raw');
+
                     // Generate world list
                     var worlds_select = $('select#worlds');
                     worlds_select.empty();
