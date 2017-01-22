@@ -113,6 +113,7 @@ CamController = function () {
 
     // Already created images for gameobjects will be stored here.
     self.gameobject_images = {};
+    self.gameobject_imagenames = {};
     self.gameobject_widths = {};
     self.gameobject_heights = {};
 
@@ -153,7 +154,7 @@ CamController = function () {
                 image = $("<img>", {
                     id: "argameobject-" + gameobject.id,
                     "class": "argameobject",
-                    src: '/api/v2/gameobject/' + gameobject.id + '/image_raw'
+                    src: '/api/v2/gameobject/' + gameobject.id + '/image_raw/' + gameobject.attributes.image,
                 });
 
                 // Add image to DOM
@@ -163,6 +164,7 @@ CamController = function () {
                 image_div.append(image);
                 self.arview.append(image_div);
                 self.gameobject_images[gameobject.id] = image;
+                self.gameobject_imagenames[gameobject.id] = ('' + gameobject.attributes.image);
 
                 // Attach click action
                 $(document).on("click", "#argameobject-" + gameobject.id, function () {
@@ -173,6 +175,10 @@ CamController = function () {
 
                 log_debug("Created image.");
             } else {
+                if (self.gameobject_imagenames[gameobject.id] != gameobject.attributes.image) {
+                    $('#argameobject-' + gameobject.id).attr('src', '/api/v2/gameobject/' + gameobject.id + '/image_raw/' + gameobject.attributes.image);
+                    self.gameobject_imagenames[gameobject.id] = ('' + gameobject.attributes.image);
+                }
                 log_debug("Found existing image.");
             }
 
