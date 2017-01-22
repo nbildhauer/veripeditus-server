@@ -147,7 +147,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         res = []
         if self.available_images_pattern is not None:
             # Get data path of current player's module
-            data_path_player = get_data_path(g.user.current_player.game.module)
+            data_path_player = get_data_path(g.user.current_player.world.game.module)
             # Get data path of the server module
             data_path_server = get_data_path()
 
