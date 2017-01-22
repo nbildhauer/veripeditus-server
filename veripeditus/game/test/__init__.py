@@ -22,13 +22,16 @@ AUTHOR = 'Dominik George <nik@naturalnet.de> Eike Jesinghaus <eike@naturalnet.de
 LICENSE = 'AGPL'
 VERSION = f.VERSION
 
+HIDE_SELF = True
+
 class Player(f.Player):
     pass
 
 class Kangoo(f.NPC):
-    spawn_osm = {"highway": "bus_stop"}
+    spawn_latlon = (0.0, 0.0)
     default_name = "Kangoo"
     default_image = "avatar_kangaroo"
 
     def on_talk(self):
+        self.attributes["foo"] = "bar"
         return self.say("foo")
