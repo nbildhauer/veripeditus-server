@@ -2,6 +2,7 @@
  * veripeditus-web - Web frontend to the veripeditus server
  * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
  * Copyright (C) 2016  Eike Tim Jesinghaus <eike@naturalnet.de>
+ * Copyright (c) 2017  mirabilos <thorsten.glaser@teckids.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -40,7 +41,7 @@ UIService = function() {
                     $('button#dialog-player-login-button').click(function() {
                         var username = $('#dialog-player-login-username').val();
                         var password = $('#dialog-player-login-password').val();
-                        $('#dialog').dialog("close");
+                        dialog.dialog("close");
                         GameData.login(username, password);
                     });
 
@@ -51,7 +52,7 @@ UIService = function() {
                     });
 
                     $('button#dialog-player-logout-button').click(function() {
-                        $('#dialog').dialog("close");
+                        dialog.dialog("close");
                         GameData.logout();
                     });
 
@@ -89,7 +90,7 @@ UIService = function() {
                         // Bind event to worlds_select to handle world change action
                         worlds_select.change(function() {
                             // Close dialog
-                            $('#dialog').dialog("close");
+                            dialog.dialog("close");
 
                             // Pass on joining the world to GameData service
                             GameData.joinWorld(worlds_select.val());
