@@ -147,7 +147,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         elif name in self.available_images():
             image_path = get_image_path(self.world.game.module, name)
         else:
-            # Return None if given name is not available for this object
+            # FIXME correct error
             return None
 
         with open(image_path, "rb") as file:
@@ -161,8 +161,11 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             self.image = name
             self.commit()
         else:
-            # Return None otherwise
+            # FIXME correct error
             return None
+
+        # Redirect to new image
+        return redirect("/api/v2/gameobject/%d/image_raw" % self.id)
 
     @api_method(authenticated=True)
     def available_images(self):
