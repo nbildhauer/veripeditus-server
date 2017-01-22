@@ -113,13 +113,6 @@ class GameObject(Base, metaclass=_GameObjectMeta):
 
     available_images_pattern = None
 
-    def __init__(self, **kwargs):
-        Base.__init__(self, **kwargs)
-
-        # Call game object initialisation code
-        if "init" in vars(self):
-            self.init()
-
     @property
     def gameobject_type(self):
         # Return type of gameobject
