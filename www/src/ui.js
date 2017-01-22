@@ -48,7 +48,7 @@ UIService = function() {
             });
 
             img.click(function () {
-                GameData.doRequest('GET', '/api/v2/gameobject/' +
+                GameData.doRequestJSON('GET', '/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/set_image/' + id, function () {
                     dialog.dialog("close");
@@ -163,7 +163,7 @@ UIService = function() {
                 }
                 // end of “player” view
             } else if (view == "avatars") {
-                GameData.doRequest('GET', '/api/v2/gameobject/' +
+                GameData.doRequestJSON('GET', '/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/available_images', avatars_handler);
                 // end of “avatars” view

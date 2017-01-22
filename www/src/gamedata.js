@@ -44,23 +44,10 @@ GameDataService = function() {
     // Current player id
     self.current_player_id = -1;
 
-    self.doRequest = function(method, url, cb, data) {
-        log_debug("Assembling HTTP request:");
-
-        // Fill options here
-        var options = {};
+    self.doRequestInternal = function (method, url, options) {
         options.method = method;
         options.url = url;
         log_debug(method + " " + url);
-        if (cb) {
-            options.dataType = "json";
-            options.success = cb;
-        }
-        if (data) {
-            options.dataType = "json";
-            options.contentType = "application/vnd.api+json";
-            options.data = data;
-        }
 
         // Check whether a username was provided
         if (localStorage.username) {
@@ -83,6 +70,32 @@ GameDataService = function() {
         }
     };
 
+    self.doRequestSimple = function (url, cb) {
+        log_debug("Assembling HTTP request:");
+
+        var options = {};
+        if (cb) {
+            options.complete = cb;
+        }
+        return self.doRequestInternal('GET', url, options);
+    };
+
+    self.doRequestJSON = function (method, url, cb, data) {
+        log_debug("Assembling HTTP request:");
+
+        var options = {};
+        if (cb) {
+            options.dataType = "json";
+            options.success = cb;
+        }
+        if (data) {
+            options.dataType = "json";
+            options.contentType = "application/vnd.api+json";
+            options.data = data;
+        }
+        return self.doRequestInternal(method, url, options);
+    };
+
     self.last_location_update = Date.now();
     self.onGeolocationChanged = function() {
         log_debug("GameDataService received geolocation update.");
@@ -99,7 +112,7 @@ GameDataService = function() {
             if (Date.now() - self.last_location_update > 5000) {
                 // Send the update request
                 log_debug("Sending geolocation update to the server.");
-                self.doRequest("GET", "/api/v2/gameobject/" + self.current_player_id + "/update_position/" + self.gameobjects[self.current_player_id].attributes.latitude + "," + self.gameobjects[self.current_player_id].attributes.longitude);
+                self.doRequestJSON("GET", "/api/v2/gameobject/" + self.current_player_id + "/update_position/" + self.gameobjects[self.current_player_id].attributes.latitude + "," + self.gameobjects[self.current_player_id].attributes.longitude);
                 self.last_location_update = Date.now();
             } else {
                 log_debug("Skipping sending geolocation updat eto server.");
@@ -208,7 +221,7 @@ GameDataService = function() {
             self.gameobjects_temp = {};
 
             $.each(self.gameobject_types, function(i, gameobject_type) {
-                self.doRequest("GET", "/api/" + gameobject_type, self.onReturnGameObjects, {
+                self.doRequestJSON("GET", "/api/" + gameobject_type, self.onReturnGameObjects, {
                     'filter[objects]': JSON.stringify(query)
                 });
             });
@@ -230,7 +243,7 @@ GameDataService = function() {
         log_debug("Updating own player item.");
 
         // Request own player item
-        self.doRequest("GET", "/api/v2/gameobject_player/self", function(data) {
+        self.doRequestJSON("GET", "/api/v2/gameobject_player/self", function(data) {
             self.current_player_id = data.data.id;
             self.gameobjects[data.data.id] = data.data;
             self.updateGameObjects();
@@ -238,7 +251,7 @@ GameDataService = function() {
 
         // Request list of worlds
         log_debug("Loading worlds.");
-        self.doRequest("GET", "/api/world", function(data) {
+        self.doRequestJSON("GET", "/api/world", function(data) {
             self.worlds = data.data;
         });
     };
@@ -247,7 +260,7 @@ GameDataService = function() {
         log_debug("Joining world id " + id + ".");
 
         // Set off request
-        self.doRequest("GET", "/api/v2/world/" + id + "/player_join", function() {
+        self.doRequestJSON("GET", "/api/v2/world/" + id + "/player_join", function() {
             // Chain self update
             self.updateSelf();
         });
@@ -278,7 +291,7 @@ GameDataService = function() {
         log_debug("Registering new user " + username + ".");
 
         // Call register API
-        self.doRequest("GET", "/api/v2/user/register", function() {
+        self.doRequestJSON("GET", "/api/v2/user/register", function() {
             // Do a normal login once registered
             self.login(username, password);
         });
@@ -296,14 +309,14 @@ GameDataService = function() {
     };
 
     self.item_collect = function(id, view) {
-        self.doRequest("GET", "/api/v2/gameobject/" + id + "/collect", function(data) {
+        self.doRequestJSON("GET", "/api/v2/gameobject/" + id + "/collect", function(data) {
             view.onGameObjectActionDone(data);
             self.updateGameObjects();
         });
     };
 
     self.npc_talk = function(id, view) {
-        self.doRequest("GET", "/api/v2/gameobject/" + id + "/talk", function(data) {
+        self.doRequestJSON("GET", "/api/v2/gameobject/" + id + "/talk", function(data) {
             view.onGameObjectActionDone(data);
             self.updateGameObjects();
         });
