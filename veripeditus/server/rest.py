@@ -20,6 +20,8 @@ This module contains everything to set up the API.
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
+import json
+
 from flask import g, make_response, redirect, request
 from flask_restless import APIManager, url_for
 from werkzeug.wrappers import Response
@@ -28,6 +30,7 @@ from veripeditus.framework.model import GameObject
 from veripeditus.server.app import APP, DB, OA
 from veripeditus.server.control import needs_authentication, _check_auth
 from veripeditus.server.model import User, World, Game
+from veripeditus.server.sources import get_sources
 from veripeditus.server.util import guess_mime_type
 
 # Columns to include in all endpoints/models
@@ -164,3 +167,7 @@ def _register_user():
         # If a user with this name already exists, return an error
         # FIXME proper error
         return ("", 409)
+
+@APP.route("/api/v2/sources")
+def _get_sources():
+    return json.dumps(get_sources())
