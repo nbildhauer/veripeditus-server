@@ -34,4 +34,5 @@ class Kangoo(f.NPC):
 
     def on_talk(self):
         self.attributes["foo"] = "bar"
+        self.commit()
         return self.say("foo")
