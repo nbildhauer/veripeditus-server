@@ -32,6 +32,7 @@ from veripeditus.server.util import get_games
 _RELEVANT_PATTERNS = ["*.py", os.path.join("data", "*")]
 _RELEVANT_MODULES = [sys.modules["veripeditus.server"],
                      sys.modules["veripeditus.framework"]] + list(get_games().values())
+_LEGAL_FILES = ["AUTHORS", "CC-BY-SA-4.0", "COPYING", "LICENSE", "README.md"]
 
 def get_module_sources(module, patterns=_RELEVANT_PATTERNS):
     """ Get all sources for a Python module's package. """
@@ -78,6 +79,7 @@ def sources_to_tarball(sources):
 
     # Assemble tarball
     with tarfile.open(mode="x:xz", fileobj=memfile) as tar:
+        # Walk through all module code and add it
         for module_name, module_sources  in sources.items():
             for file_name, file_sources in module_sources.items():
                 tarinfo = tarfile.TarInfo(name="/".join([module_name.replace(".", "/"), file_name]))
@@ -86,6 +88,13 @@ def sources_to_tarball(sources):
                 tarinfo.uname = tarinfo.gname = "root"
                 tarinfo.type = tarfile.REGTYPE
                 tar.addfile(tarinfo, BytesIO(file_sources))
+
+        # Create symlink to legal files
+        for lfile in _LEGAL_FILES:
+            tarinfo = tarfile.TarInfo(name=lfile)
+            tarinfo.type = tarfile.SYMTYPE
+            tarinfo.linkname = "veripeditus/server/data/%s" % lfile
+            tar.addfile(tarinfo)
 
     # Seek to beginning, get contents and return
     memfile.seek(0, 0)
