@@ -23,13 +23,24 @@
 
  <hr />
 
- <h2>Change World</h2>
-
- <select id="worlds">
- </select>
-
- <h2>Inventory</h2>
-
- <table id="inventory-table">
- </table>
+ <div id="dialog-player-logout-tabs">
+  <script type="text/javascript"><!--//--><![CDATA[//><!--
+   $(function () {
+    $('#dialog-player-logout-tabs').tabs();
+   });
+  //--><!]]></script>
+  <ul>
+   <li><a href="#dialog-player-logout-tabs-inventory">Inventory</a></li>
+   <li><a href="#dialog-player-logout-tabs-world">World</a></li>
+  </ul>
+  <div id="dialog-player-logout-tabs-inventory">
+   <table id="inventory-table">
+   </table>
+  </div>
+  <div id="dialog-player-logout-tabs-world">
+   <h3>Change World</h3>
+   <select id="worlds">
+   </select>
+  </div>
+ </div>
 </div>
