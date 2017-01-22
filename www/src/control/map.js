@@ -40,7 +40,7 @@ MapController = function() {
     if (Veripeditus.debug) {
         self.map.on('click', function(event) {
             if (event.originalEvent.ctrlKey) {
-                if (! event.originalEvent.shiftKey) {
+                if (!event.originalEvent.shiftKey) {
                     log_debug("Faking geolocation.");
 
                     fake_pos = {
@@ -59,7 +59,7 @@ MapController = function() {
                     var own_latlng = L.latLng(Device.position.coords.latitude, Device.position.coords.longitude);
 
                     // Get bearing
-                    var bearing = own_latlng.bearingTo(event.latlng);
+                    var bearing = L.GeometryUtil.bearing(own_latlng, event.latlng);
                     fake_orientation = {
                         alpha: 0,
                         beta: 0,
@@ -97,7 +97,7 @@ MapController = function() {
 
     // Called by GameDataService on gameobjects update
     self.onUpdatedGameObjects = function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         log_debug("MapController received update of gameobjects.");
 
@@ -108,12 +108,6 @@ MapController = function() {
             // Check whether item should be shown on the map
             if (!gameobject.attributes.isonmap) {
                 log_debug("Not on map.");
-                return;
-            }
-
-            // Skip if object is own player
-            // FIXME Hasn't this moved to isonmap with VISIBLE_SELF?
-            if (id == GameData.current_player_id) {
                 return;
             }
 
@@ -176,7 +170,7 @@ MapController = function() {
 
     // Called by DeviceService on geolocation update
     self.onGeolocationChanged = function() {
-        if (! self.active) return;
+        if (!self.active) return;
 
         log_debug("MapController received geolocation update.");
 

@@ -1,11 +1,26 @@
+/*
+ * veripeditus-web - Web frontend to the veripeditus server
+ * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
+ * Copyright (C) 2017  mirabilos <thorsten.glaser@teckids.org>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published
+ * by the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 html, body {
 	height: 100%;
 	width: 100%;
-	-webkit-touch-callout: none;
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	touch-callout: none;
 	user-select: none;
 }
 
@@ -66,6 +81,15 @@ div#control-overlay .control-round .control-round-icon {
 	pointer-events: none;
 }
 
+div#control-overlay .control-round .control-round-icon-overlay {
+	position: relative;
+	width: 60%;
+	height: 60%;
+	left: 20%;
+	top: -50%;
+	pointer-events: none;
+}
+
 div#arview {
 	position: absolute;
 	top: 0px;
@@ -76,18 +100,23 @@ div#arview {
 	perspective-origin: 50% 50%;
 	transform-origin: 50% 50%;
 	perspective: 800px;
-	-webkit-transform-style: preserve-3d;
-	-webkit-perspective-origin: 50% 50%;
-	-webkit-transform-origin: 50% 50%;
-	-webkit-perspective: 800px;
+	pointer-events: none;
 }
 
 div#arview img.argameobject {
-	height: 95%;
-	max-width: 95%;
-	position: absolute;
 	transform-style: preserve-3d;
-	-webkit-transform-style: preserve-3d;
+	height: 50%;
+	max-width: 95%;
+	pointer-events: auto;
+	transition: transform 500ms linear;
+}
+
+div#arview div.argameobjectwrapper {
+	position: absolute;
+	height: 100%;
+	transform-style: preserve-3d;
+	pointer-events: none;
+	transition: transform 500ms linear;
 }
 
 p.map_popup_image, p.map_popup_image img {

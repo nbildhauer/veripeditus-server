@@ -1,7 +1,7 @@
 /*
  * veripeditus-web - Web frontend to the veripeditus server
  * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
- * Copyright (C) 2017  Eike Jesinghaus <eike@naturalnet.de>
+ * Copyright (C) 2017  Eike Tim Jesinghaus <eike@naturalnet.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -33,7 +33,7 @@ Veripeditus = {
 
         this.views.push(view);
         view.deactivate();
-        if (! this.currentView) {
+        if (!this.currentView) {
             this.currentView = view;
             view.activate();
         }
@@ -69,5 +69,10 @@ Veripeditus = {
     debug: false
 };
 
-// Uncomment to enable debugging in webapp
-Veripeditus.debug = true;
+if (window.URLSearchParams) {
+    var search_param = '' + window.location.search;
+    var params = new URLSearchParams(search_param.replace(/^\?/, ''));
+    if (params.get("debug") == "true") {
+        Veripeditus.debug = true;
+    }
+}
