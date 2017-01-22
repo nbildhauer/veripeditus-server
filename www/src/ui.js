@@ -84,6 +84,7 @@ UIService = function () {
             if (view == "player") {
                 var active_tab = opts.active_tab || 0;
 
+                $('#dialog-player-login-tabs').tabs();
                 $('#dialog-player-logout-tabs').tabs({
                     'active': active_tab,
                 });
@@ -96,9 +97,13 @@ UIService = function () {
                 });
 
                 $('button#dialog-player-register-button').click(function () {
-                    var username = $('#dialog-player-login-username').val();
-                    var password = $('#dialog-player-login-password').val();
-                    GameData.register(username, password);
+                    var username = $('#dialog-player-register-newusername').val();
+                    var password = $('#dialog-player-register-newpassword').val();
+                    if ($('#dialog-player-register-chkpassword').val() === password) {
+                        GameData.register(username, password);
+                    } else {
+                        $('#dialog-player-login-tabs-register-text').text('Passwords don’t match!');
+                    }
                 });
 
                 $('button#dialog-player-logout-button').click(function () {

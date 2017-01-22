@@ -1,19 +1,44 @@
 <h1>About You</h1>
 
 <div id="dialog-player-login">
- <h2>Login</h2>
- <div>
-  <label for="username">Username:</label>
-  <input type="text" name="username" id="dialog-player-login-username" size="20" />
+ <div id="dialog-player-login-tabs">
+  <ul>
+   <li><a href="#dialog-player-login-tabs-login">Login</a></li>
+   <li><a href="#dialog-player-login-tabs-register">Register</a></li>
+  </ul>
+  <div id="dialog-player-login-tabs-login">
+   <div>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="dialog-player-login-username" size="20" />
+   </div>
+   <div>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="dialog-player-login-password" size="20" />
+   </div>
+   <p>
+    <button id="dialog-player-login-button">Login</button>
+   </p>
+  </div>
+  <div id="dialog-player-login-tabs-register">
+   <div id="dialog-player-login-tabs-register-text">
+   </div>
+   <div>
+    <label for="username">Username:</label>
+    <input type="text" name="newusername" id="dialog-player-register-newusername" size="20" />
+   </div>
+   <div>
+    <label for="password">Password:</label>
+    <input type="password" name="newpassword" id="dialog-player-register-newpassword" size="20" />
+   </div>
+   <div>
+    <label for="password">Password (again):</label>
+    <input type="password" name="chkpassword" id="dialog-player-register-chkpassword" size="20" />
+   </div>
+   <p>
+    <button id="dialog-player-register-button">Register</button>
+   </p>
+  </div>
  </div>
- <div>
-  <label for="password">Password:</label>
-  <input type="password" name="password" id="dialog-player-login-password" size="20" />
- </div>
- <p>
-  <button id="dialog-player-login-button">Login</button>
-  <button id="dialog-player-register-button">Register</button>
- </p>
 </div>
 
 <div id="dialog-player-logout">
