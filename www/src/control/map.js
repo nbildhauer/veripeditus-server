@@ -2,6 +2,7 @@
  * veripeditus-web - Web frontend to the veripeditus server
  * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
  * Copyright (C) 2016, 2017  Eike Tim Jesinghaus <eike@naturalnet.de>
+ * Copyright (c) 2017  mirabilos <thorsten.glaser@teckids.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
@@ -131,17 +132,12 @@ MapController = function() {
                 });
 
                 // Create popup
-                var html = "<h1>" + gameobject.attributes.name + "</h1>";
-                html += "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + "/image_raw' /></p>";
-                if (gameobject.attributes.gameobject_type == "gameobject_item") {
-                    // FIXME also check for collectible
-                    html += "<button class='map_popup_button' onClick='MapView.item_collect(" + gameobject.id + ")'>Collect</button>";
-                }
-                if (gameobject.attributes.gameobject_type == "gameobject_npc") {
-                    // FIXME also check for talkable
-                    html += "<button class='map_popup_button' onClick='MapView.npc_talk(" + gameobject.id + ")'>Talk</button>";
-                }
-                marker.bindPopup(html);
+                marker.on('click', function (e) {
+                    UI.render_view('popup', {
+                        'gameobject': gameobject,
+                        'leaflet-event': e,
+                    });
+                });
 
                 // Add marker to map and store to known markers
                 marker.addTo(self.marker_cluster_group);
