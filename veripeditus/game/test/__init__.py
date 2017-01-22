@@ -38,6 +38,11 @@ class Beer(f.Item):
     default_name = "Beer"
     owned_max = 10
 
+class Book(f.Item):
+    spawn_osm = {"building": "school"}
+    default_name = "Book"
+    owned_max = 10
+
 class Coin(f.Item):
     default_name = "Coin"
 
@@ -48,7 +53,7 @@ class Kangoo(f.NPC):
 
     def init(self):
         self.name = random.choice(("Thorsten", "Dominik", "foo", "bar", "nocheinname"))
-        self.item = random.choice((Apple, Beer))
+        self.item = random.choice((Apple, Beer, Book))
         self.amount = random.randint(1, 10)
         self.finished = False
 
