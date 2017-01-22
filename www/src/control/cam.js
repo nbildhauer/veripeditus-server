@@ -156,7 +156,6 @@ CamController = function() {
                     src: '/api/v2/gameobject/' + gameobject.id + '/image_raw'
                 });
 
-
                 // Add image to DOM
                 var image_div = $('<div>', {
                     'class': 'argameobjectwrapper',
@@ -191,7 +190,7 @@ CamController = function() {
             }
 
             // Update image style on size change, and once right now
-            image.resize(function () {
+            image.resize(function() {
                 self.updateOneARStyle(image, gameobject);
             });
             self.updateOneARStyle(image, gameobject);
@@ -237,7 +236,7 @@ CamController = function() {
         GameData.setBounds(bounds[0], bounds[1]);
     };
 
-    self.updateOneARStyle = function (image, gameobject) {
+    self.updateOneARStyle = function(image, gameobject) {
         var styles = self.getARStyles(gameobject);
 
         image.parent().css(styles['container']);
@@ -250,7 +249,7 @@ CamController = function() {
 
         self.is_updating = true;
 
-        $.each(self.gameobject_images, function (id, image) {
+        $.each(self.gameobject_images, function(id, image) {
             self.updateOneARStyle(image, GameData.gameobjects[id]);
         });
 
