@@ -113,19 +113,10 @@ MapController = function () {
             }
 
             // Look for already created marker for self gameobject id
-            var markerw = self.gameobject_markers[gameobject.id];
-            if (markerw) {
+            var marker = self.gameobject_markers[gameobject.id];
+            if (marker) {
                 // Marker exists, store location
-                markerw[1].setLatLng([gameobject.attributes.latitude, gameobject.attributes.longitude]);
-                if (gameobject.attributes.image != markerw[0]) {
-                    // Update icon as well
-                    var icon = L.icon({
-                        'iconUrl': '/api/v2/gameobject/' + gameobject.id + '/image_raw/' + gameobject.attributes.image,
-                        'iconSize': [32, 32],
-                    });
-                    markerw[1].setIcon(icon);
-                    markerw[0] = ('' + gameobject.attributes.image);
-                }
+                marker.setLatLng([gameobject.attributes.latitude, gameobject.attributes.longitude]);
                 log_debug("Updated marker.");
             } else {
                 // Marker does not exist
@@ -150,7 +141,7 @@ MapController = function () {
 
                 // Add marker to map and store to known markers
                 marker.addTo(self.marker_cluster_group);
-                self.gameobject_markers[gameobject.id] = [('' + gameobject.attributes.image), marker, ];
+                self.gameobject_markers[gameobject.id] = marker;
                 log_debug("Created marker.");
             }
         });
