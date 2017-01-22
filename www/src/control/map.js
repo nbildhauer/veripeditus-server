@@ -224,9 +224,6 @@ MapController = function () {
             var elem = $(html);
             dialog.append(elem);
             dialog.dialog({
-                resizable: false,
-                draggable: false,
-                modal: true,
                 title: GameData.gameobjects[data.gameobject].attributes.name
             });
         }

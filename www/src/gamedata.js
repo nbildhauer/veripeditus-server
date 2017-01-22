@@ -350,11 +350,7 @@ $(document).bind("ajaxError", function (req, status, error) {
         var html = "<p>Your login failed. Please try again!</p>";
         var elem = $(html);
         dialog.append(elem);
-        dialog.dialog({
-            resizable: false,
-            draggable: false,
-            modal: true,
-        });
+        dialog.dialog();
     }
 });
 
