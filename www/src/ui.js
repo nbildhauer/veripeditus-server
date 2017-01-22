@@ -73,8 +73,10 @@ UIService = function() {
             head.remove();
 
             // Code to run before the dialogue is rendered (and sized)
-            if (view == "avatars") {
+            if (view == 'avatars') {
                 $('#dialog-avatars').height(screen.height * 1 / 3);
+            } else if (view == 'popup') {
+                opts.title = opts.gameobject.attributes.name;
             }
 
             dialog.dialog(opts);
@@ -165,11 +167,27 @@ UIService = function() {
                     $("#dialog-player-logout").hide();
                 }
                 // end of “player” view
-            } else if (view == "avatars") {
+            } else if (view == 'avatars') {
                 GameData.doRequestJSON('GET', '/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/available_images', avatars_handler);
                 // end of “avatars” view
+            } else if (view == 'popup') {
+                var gameobject = opts.gameobject;
+
+                //XXX FIXME: move this all to an HTML fragment
+                var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + "/image_raw' /></p>";
+                if (gameobject.attributes.gameobject_type == "gameobject_item") {
+                    // FIXME also check for collectible
+                    html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
+                }
+                if (gameobject.attributes.gameobject_type == "gameobject_npc") {
+                    // FIXME also check for talkable
+                    html += "<button class='map_popup_button' onClick='CamView.npc_talk(" + gameobject.id + ")'>Talk</button>";
+                }
+                var elem = $(html);
+                dialog.append(elem);
+                // end of “popup” view
             }
         });
     };

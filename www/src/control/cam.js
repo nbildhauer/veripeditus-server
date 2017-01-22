@@ -165,22 +165,9 @@ CamController = function() {
                 self.gameobject_images[gameobject.id] = image;
 
                 // Attach click action
-                $(document).on("click", "#argameobject-" + gameobject.id, function() {
-                    var dialog = $('div#dialog');
-                    dialog.empty();
-                    var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + "/image_raw' /></p>";
-                    if (gameobject.attributes.gameobject_type == "gameobject_item") {
-                        // FIXME also check for collectible
-                        html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
-                    }
-                    if (gameobject.attributes.gameobject_type == "gameobject_npc") {
-                        // FIXME also check for talkable
-                        html += "<button class='map_popup_button' onClick='CamView.npc_talk(" + gameobject.id + ")'>Talk</button>";
-                    }
-                    var elem = $(html);
-                    dialog.append(elem);
-                    dialog.dialog({
-                        title: gameobject.attributes.name
+                $(document).on("click", "#argameobject-" + gameobject.id, function () {
+                    UI.render_view('popup', {
+                        'gameobject': gameobject,
                     });
                 });
 
