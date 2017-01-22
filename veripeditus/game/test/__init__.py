@@ -29,14 +29,17 @@ class Player(f.Player):
     pass
 
 class Apple(f.Item):
-#    spawn_osm = {"natural": "tree"}
+    spawn_osm = {"natural": "tree"}
     default_name = "Apple"
     owned_max = 10
 
 class Beer(f.Item):
-#    spawn_osm = {"amenity": "pub"}
+    spawn_osm = {"amenity": "pub"}
     default_name = "Beer"
     owned_max = 10
+
+class Coin(f.Item):
+    default_name = "Coin"
 
 class Kangoo(f.NPC):
     spawn_osm = {"highway": "bus_stop"}
@@ -54,7 +57,8 @@ class Kangoo(f.NPC):
         if player.has_item(self.item) >= self.amount or self.finished:
             msg = self.say("Thanks!")
             player.drop_items(self.item)
+            player.new_item(Coin)
             self.finished = True
         else:
-            msg = self.say("I want %i of this: %s" % (self.amount, self.item.default_name))
+            msg = self.say("I will give you a coin if you get me %i of this: %s." % (self.amount, self.item.default_name))
         return msg
