@@ -78,6 +78,11 @@ UIService = function () {
                 opts.title = opts.gameobject.attributes.name;
             }
 
+            //XXX (FIXME: temporarily) Force all dialogues to 90% screen size
+            // (except those created from other places in the JS code)
+            opts.width = window.innerWidth * 9 / 10;
+            opts.height = window.innerHeight * 9 / 10;
+            //XXX FIXME: replace
             dialog.dialog(opts);
 
             // UI magic
