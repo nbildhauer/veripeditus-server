@@ -121,17 +121,21 @@ UIService = function() {
                     });
 
                     // Insert profile
-                    $('#dialog-player-logout-tabs-profile-avatar-image').attr('src',
-                      '/api/v2/gameobject/' + GameData.current_player_id +
-                      '/image_raw')
-                      //XXX TODO: consider maximum width vs. dialogue width
-                    .attr('height', screen.height * 1 / 4);
                     $('#dialog-player-logout-tabs-profile-avatar-change').click(function () {
                         dialog.dialog("close");
                         return self.render_view('avatars', {
                             width: (screen.width * 2 / 3),
                         });
                     });
+                    var profile_avatar = $('#dialog-player-logout-tabs-profile-avatar-image');
+                    // Reset first
+                    profile_avatar
+                    .attr('src', 'img/ui/btn-player.svg')
+                      //XXX TODO: consider maximum width vs. dialogue width
+                    .attr('height', screen.height * 1 / 4);
+                    // Now reload
+                    profile_avatar.attr('src', '/api/v2/gameobject/' +
+                      GameData.current_player_id + '/image_raw');
 
                     // Generate world list
                     var worlds_select = $('select#worlds');
