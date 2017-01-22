@@ -133,7 +133,7 @@ UIService = function() {
                     .attr('src', '/api/v2/gameobject/' +
                       GameData.current_player_id + '/image_raw/' +
                       GameData.gameobjects[GameData.current_player_id].attributes.image)
-                      //XXX TODO: consider maximum width vs. dialogue width
+                      //XXX FIXME: consider maximum width vs. dialogue width
                     .attr('height', screen.height * 1 / 4);
 
                     // Generate world list
