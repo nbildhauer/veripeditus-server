@@ -98,7 +98,7 @@ CamController = function () {
             image_div['transform'] = offset;
             style['transform'] = rotation;
             // Sort z-index of objects by distance
-            style['z-index'] = Math.round(distance * 100);
+            style['z-index'] = Math.round((MAX_DISTANCE - distance) * 100 + 1);
             // Unhide object
             style['display'] = '';
         } else {
