@@ -154,6 +154,17 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             return file.read()
 
     @api_method(authenticated=True)
+    def set_image(self, name):
+        # Check if image is available
+        if name in self.available_images():
+            # Update image
+            self.image = name
+            self.commit()
+        else:
+            # Return None otherwise
+            return None
+
+    @api_method(authenticated=True)
     def available_images(self):
         res = []
 
