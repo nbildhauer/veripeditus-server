@@ -181,7 +181,7 @@ UIService = function () {
                 var gameobject = opts.gameobject;
 
                 //XXX FIXME: move this all to an HTML fragment
-                var html = "<p class='map_popup_image'><img src='/api/v2/gameobject/" + gameobject.id + '/image_raw/' + gameobject.attributes.image + "' /></p>";
+                var html = "<img class='map_popup_image' src='/api/v2/gameobject/" + gameobject.id + '/image_raw/' + gameobject.attributes.image + "' />";
                 if (gameobject.attributes.gameobject_type == "gameobject_item") {
                     // FIXME also check for collectible
                     html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";

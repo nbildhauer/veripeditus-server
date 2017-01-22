@@ -120,11 +120,7 @@ div#arview div.argameobjectwrapper {
 	transition: transform 500ms linear;
 }
 
-p.map_popup_image {
-	width: 100%;
-}
-
-p.map_popup_image img {
+img.map_popup_image {
 	max-width: 100%;
 	max-height: 90%;
 }
