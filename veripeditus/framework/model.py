@@ -165,7 +165,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             return None
 
         # Redirect to new image
-        return json.dumps([])
+        return redirect("/api/v2/gameobject/%d/image_raw" % self.id)
 
     @api_method(authenticated=True)
     def available_images(self):

@@ -48,15 +48,16 @@ UIService = function() {
             });
 
             img.click(function () {
-                GameData.doRequest('GET', '/api/v2/gameobject/' +
+                GameData.doRawRequest('GET', '/api/v2/gameobject/' +
                   GameData.current_player_id +
                   '/set_image/' + id, function () {
                     dialog.dialog("close");
+                    GameData.updateSelf();
                     return self.render_view('player', {
                         'active_tab': profile_tabs['profile'],
                         'width': /* restore default */ 300,
                     });
-                });
+                }, null);
             });
             av.append(img);
         });

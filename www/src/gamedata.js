@@ -44,7 +44,7 @@ GameDataService = function() {
     // Current player id
     self.current_player_id = -1;
 
-    self.doRequest = function(method, url, cb, data) {
+    self.doRawRequest = function (method, url, cb, dataType, data) {
         log_debug("Assembling HTTP request:");
 
         // Fill options here
@@ -53,7 +53,9 @@ GameDataService = function() {
         options.url = url;
         log_debug(method + " " + url);
         if (cb) {
-            options.dataType = "json";
+            if (dataType !== null) {
+                options.dataType = dataType;
+            }
             options.success = cb;
         }
         if (data) {
@@ -81,6 +83,11 @@ GameDataService = function() {
             log_debug("Skipping request.");
             return false;
         }
+    };
+
+    self.doRequest = function (method, url, cb, data) {
+        var dataType = cb ? 'json' : null;
+        return self.doRawRequest(method, url, cb, dataType, data);
     };
 
     self.last_location_update = Date.now();
