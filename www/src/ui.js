@@ -100,6 +100,7 @@ UIService = function () {
                     var username = $('#dialog-player-register-newusername').val();
                     var password = $('#dialog-player-register-newpassword').val();
                     if ($('#dialog-player-register-chkpassword').val() === password) {
+                        dialog.dialog("close");
                         GameData.register(username, password);
                     } else {
                         $('#dialog-player-login-tabs-register-text').text('Passwords don’t match!');
