@@ -153,7 +153,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
 
             for data_path in (data_path_player, data_path_server):
                 # Get images in data path matching the pattern
-                res += glob("%s/%s" % (data_path, pattern))
+                res += glob("%s/%s" % (data_path, self.available_images_pattern))
 
         # Get basenames of every file
         basenames = [os.path.basename(r) for r in res]
