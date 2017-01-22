@@ -182,14 +182,20 @@ UIService = function () {
 
                 //XXX FIXME: move this all to an HTML fragment
                 var html = "<img class='map_popup_image' src='/api/v2/gameobject/" + gameobject.id + '/image_raw/' + gameobject.attributes.image + "' />";
+                var p = '<p>', sp = '';
                 if (gameobject.attributes.gameobject_type == "gameobject_item") {
                     // FIXME also check for collectible
-                    html += "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
+                    html += p + "<button class='map_popup_button' onClick='CamView.item_collect(" + gameobject.id + ")'>Collect</button>";
+                    p = '';
+                    sp = '</p>';
                 }
                 if (gameobject.attributes.gameobject_type == "gameobject_npc") {
                     // FIXME also check for talkable
-                    html += "<button class='map_popup_button' onClick='CamView.npc_talk(" + gameobject.id + ")'>Talk</button>";
+                    html += p + "<button class='map_popup_button' onClick='CamView.npc_talk(" + gameobject.id + ")'>Talk</button>";
+                    p = '';
+                    sp = '</p>';
                 }
+                html += sp;
                 var elem = $(html);
                 dialog.append(elem);
                 // end of “popup” view
