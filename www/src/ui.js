@@ -48,11 +48,15 @@ UIService = function() {
             });
 
             img.click(function () {
-                alert('Chose image ID: ' + id);
-                dialog.dialog("close");
-                return self.render_view('player', {
-                    'active_tab': profile_tabs['profile'],
-                    'width': /* restore default */ 300,
+                GameData.doRequest('GET', '/api/v2/gameobject/' +
+                  GameData.current_player_id +
+                  '/set_image/' + id, function () {
+alert('request done');
+                    dialog.dialog("close");
+                    return self.render_view('player', {
+                        'active_tab': profile_tabs['profile'],
+                        'width': /* restore default */ 300,
+                    });
                 });
             });
             av.append(img);
