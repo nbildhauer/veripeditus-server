@@ -78,14 +78,14 @@ def sources_to_tarball(sources):
 
     # Assemble tarball
     with tarfile.open(mode="x:xz", fileobj=memfile) as tar:
-        for module_name, module_sources in sources:
-            for file_name, file_sources in module_sources:
-                tarinfo = tarfile.TarInfo(name="/".join(module_name, file_name))
+        for module_name, module_sources  in sources.items():
+            for file_name, file_sources in module_sources.items():
+                tarinfo = tarfile.TarInfo(name="/".join([module_name, file_name]))
                 tarinfo.size = len(file_sources)
                 tarinfo.uid = tarinfo.gid = 0
                 tarinfo.uname = tarinfo.gname = "root"
-                tarinfo.type = tarinfo.REGTYPE
-                tar.addfile(tarinfo, file_sources)
+                tarinfo.type = tarfile.REGTYPE
+                tar.addfile(tarinfo, BytesIO(file_sources))
 
     # Seek to beginning, get contents and return
     memfile.seek(0, 0)
