@@ -21,11 +21,13 @@ This module contains everything to set up the API.
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import json
+from socket import getfqdn
 
 from flask import g, make_response, redirect, request
 from flask_restless import APIManager, url_for
 from werkzeug.wrappers import Response
 
+from veripeditus.framework import VERSION
 from veripeditus.framework.model import GameObject
 from veripeditus.server.app import APP, DB, OA
 from veripeditus.server.control import needs_authentication, _check_auth
@@ -170,4 +172,18 @@ def _register_user():
 
 @APP.route("/api/v2/source_tarball")
 def _get_source_tarball():
-    return sources_to_tarball(get_sources())
+    """ Returns a dynamically generated source tarball to the client. """
+
+    # Assemble filename
+    filename = "veripeditus-server_%s_%s.tar.xz" % (VERSION, getfqdn())
+
+    # Get source tarball contents
+    contents = sources_to_tarball(get_sources())
+
+    # Build response for download
+    res = make_response(contents)
+    res["Content-Type"] = "application/x-xz"
+    res["Content-Disposition"] = "attachment; filename=\"%s\"" % filename
+
+    # Return HTTP response
+    return res
