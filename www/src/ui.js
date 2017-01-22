@@ -22,6 +22,11 @@ UIService = function() {
     var self = this;
     self.name = "ui";
 
+    var avatars_handler = function (data) {
+        var av = $('#dialog-avatars');
+        av.text(data);
+    };
+
     self.render_view = function (view, opts) {
         var dialog = $('div#dialog');
         opts = opts || {};
@@ -111,8 +116,9 @@ UIService = function() {
                 }
                 // end of “player” view
             } else if (view == "avatars") {
-                var av = $('#dialog-avatars');
-
+                GameData.doRequest('GET', '/api/v2/gameobject/' +
+                  GameData.current_player_id +
+                  '/available_images', avatars_handler);
                 // end of “avatars” view
             }
         });
