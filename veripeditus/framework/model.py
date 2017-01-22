@@ -19,6 +19,7 @@ from collections import Sequence
 from glob import glob
 from numbers import Real
 import json
+import os
 import random
 
 from flask import g, redirect
@@ -145,6 +146,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
     @api_method(authenticated=True)
     def available_images(self):
         res = []
+
         if self.available_images_pattern is not None:
             # Get data path of current player's module
             data_path_player = get_data_path(g.user.current_player.world.game.module)
@@ -153,7 +155,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
 
             for data_path in (data_path_player, data_path_server):
                 # Get images in data path matching the pattern
-                res += glob("%s/%s" % (data_path, self.available_images_pattern))
+                res += glob(os.path.join(data_path, self.available_images_pattern))
 
         # Get basenames of every file
         basenames = [os.path.basename(r) for r in res]

@@ -70,12 +70,12 @@ def get_data_path(module=None):
     """
     Get the full path of a module data directory.
 
-    module - the module to find the data path for, defaults to server
+    module - the module to find the data path for, defaults to framework
     """
 
     # Default to server module
     if module is None:
-        module = sys.modules["veripeditus.server"]
+        module = sys.modules["veripeditus.framework"]
 
     # Get the path of the module implementation
     _modpath = os.path.dirname(module.__file__)
