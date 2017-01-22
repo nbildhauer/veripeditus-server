@@ -46,6 +46,7 @@ Depends:
  libjs-jquery-throttle-debounce,
  libjs-jquery-ui,
  libjs-leaflet,
+ libjs-leaflet-geometryutil,
  libjs-leaflet-markercluster,
  ${misc:Depends},
 Recommends:
