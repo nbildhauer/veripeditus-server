@@ -138,7 +138,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             return None
         return self.distance_to(g.user.current_player)
 
-    @api_method(authenticated=True)
+    @api_method(authenticated=False)
     def image_raw(self, name=None):
         # Take path of current image if name is not given
         # If name is given take its path instead
@@ -167,7 +167,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         # Redirect to new image
         return redirect("/api/v2/gameobject/%d/image_raw" % self.id)
 
-    @api_method(authenticated=True)
+    @api_method(authenticated=False)
     def available_images(self):
         res = []
 
@@ -178,12 +178,12 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             else:
                 patterns = [self.available_images_pattern]
 
-            # Get data path of current player's module
-            data_path_player = get_data_path(g.user.current_player.world.game.module)
+            # Get data path of this object's module
+            data_path_game = get_data_path(self.world.game.module)
             # Get data path of the framework module
             data_path_framework = get_data_path()
 
-            for data_path in (data_path_player, data_path_framework):
+            for data_path in (data_path_game, data_path_framework):
                 for pattern in patterns:
                     # Get images in data path matching the pattern
                     res += glob(os.path.join(data_path, pattern))
