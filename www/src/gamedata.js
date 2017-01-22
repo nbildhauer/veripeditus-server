@@ -2,6 +2,7 @@
  * veripeditus-web - Web frontend to the veripeditus server
  * Copyright (C) 2016, 2017  Dominik George <nik@naturalnet.de>
  * Copyright (C) 2016  Eike Tim Jesinghaus <eike@naturalnet.de>
+ * Copyright (c) 2016, 2017  mirabilos <m@mirbsd.org>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published
