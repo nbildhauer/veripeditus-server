@@ -78,6 +78,16 @@ UIService = function () {
                 opts.title = opts.gameobject.attributes.name;
             }
 
+            opts.position = {
+                my: 'left top',
+                at: 'left top',
+                of: window
+            };
+            opts.width = screen.width;
+            opts.height = screen.height;
+            opts.resizable = false;
+            opts.draggable = false;
+            opts.modal = true;
             dialog.dialog(opts);
 
             // UI magic

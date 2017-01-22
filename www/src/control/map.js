@@ -224,6 +224,16 @@ MapController = function () {
             var elem = $(html);
             dialog.append(elem);
             dialog.dialog({
+                position: {
+                    my: 'left top',
+                    at: 'left top',
+                    of: window
+                },
+                width: screen.width,
+                height: screen.height,
+                resizable: false,
+                draggable: false,
+                modal: true,
                 title: GameData.gameobjects[data.gameobject].attributes.name
             });
         }
