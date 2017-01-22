@@ -111,7 +111,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
 
     distance_max = None
 
-    available_images_pattern = None
+    available_images_pattern = ["*.svg", "*.png"]
 
     @property
     def gameobject_type(self):
@@ -138,7 +138,7 @@ class GameObject(Base, metaclass=_GameObjectMeta):
             return None
         return self.distance_to(g.user.current_player)
 
-    @api_method(authenticated=False)
+    @api_method(authenticated=True)
     def image_raw(self, name=None):
         # Take path of current image if name is not given
         # If name is given take its path instead
@@ -172,14 +172,21 @@ class GameObject(Base, metaclass=_GameObjectMeta):
         res = []
 
         if self.available_images_pattern is not None:
+            # Make patterns a list
+            if isinstance(self.available_images_pattern, list):
+                patterns = self.available_images_pattern
+            else:
+                patterns = [self.available_images_pattern]
+
             # Get data path of current player's module
             data_path_player = get_data_path(g.user.current_player.world.game.module)
             # Get data path of the framework module
             data_path_framework = get_data_path()
 
             for data_path in (data_path_player, data_path_framework):
-                # Get images in data path matching the pattern
-                res += glob(os.path.join(data_path, self.available_images_pattern))
+                for pattern in patterns:
+                    # Get images in data path matching the pattern
+                    res += glob(os.path.join(data_path, pattern))
 
         # Get basenames of every file without extension
         basenames = [os.path.extsep.join(os.path.basename(r).split(os.path.extsep)[:-1])
