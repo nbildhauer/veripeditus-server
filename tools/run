@@ -1,0 +1,7 @@
+#!/bin/sh
+set -ex
+cd "$(dirname "$0")/.."
+PATH=$HOME/.local/bin:$PATH
+export PATH
+pip3 install -I --no-deps .
+exec veripeditus-standalone -d -w www "$@"
