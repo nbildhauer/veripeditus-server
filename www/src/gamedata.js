@@ -246,7 +246,9 @@ GameDataService = function() {
         self.doRequestJSON("GET", "/api/v2/gameobject_player/self", function(data) {
             self.current_player_id = data.data.id;
             self.gameobjects[data.data.id] = data.data;
+            //XXX FIXME: unnecessary slowdown, why is this here?
             self.updateGameObjects();
+            // Not waiting for self.worlds update, but that’s OK here, for now
             if (cb) {
                 cb();
             }
