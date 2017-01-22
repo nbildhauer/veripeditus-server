@@ -74,6 +74,12 @@ UIService = function() {
                     $('#dialog-player-logout-tabs-profile-avatar-image').attr('src',
                       '/api/v2/gameobject/' + GameData.current_player_id +
                       '/image_raw');
+                    $('#dialog-player-logout-tabs-profile-avatar-change').click(function () {
+                        dialog.dialog("close");
+                        return self.render_view('avatars', {
+                            width: (screen.width * 2 / 3),
+                        });
+                    });
 
                     // Generate world list
                     var worlds_select = $('select#worlds');
@@ -104,6 +110,10 @@ UIService = function() {
                     $("#dialog-player-logout").hide();
                 }
                 // end of “player” view
+            } else if (view == "avatars") {
+                var av = $('#dialog-avatars');
+
+                // end of “avatars” view
             }
         });
     };
