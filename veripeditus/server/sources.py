@@ -80,7 +80,7 @@ def sources_to_tarball(sources):
     with tarfile.open(mode="x:xz", fileobj=memfile) as tar:
         for module_name, module_sources  in sources.items():
             for file_name, file_sources in module_sources.items():
-                tarinfo = tarfile.TarInfo(name="/".join([module_name, file_name]))
+                tarinfo = tarfile.TarInfo(name="/".join([module_name.replace(".", "/"), file_name]))
                 tarinfo.size = len(file_sources)
                 tarinfo.uid = tarinfo.gid = 0
                 tarinfo.uname = tarinfo.gname = "root"
