@@ -59,7 +59,7 @@ The authors and lead developers of Veripeditus are…
    developer, born 2001 (14 years old at the time the project started)
    and an expert Python and PyGame developer and tutor since his 11ᵗʰ
    birthday, and …
- * … Dominik George <<nik@naturalnet.de>>, formerly teacher of Eike, now
+ * … Dominik George <<nik@naturalnet.de>>, former teacher of Eike, now
    at times his trainee regarding Python magic.
 
 ## Licence
