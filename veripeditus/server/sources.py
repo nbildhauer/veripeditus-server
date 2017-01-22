@@ -29,7 +29,7 @@ from veripeditus.server.util import get_games
 
 _RELEVANT_PATTERNS = ["*.py", os.path.join("data", "*")]
 _RELEVANT_MODULES = [sys.modules["veripeditus.server"],
-                     sys.modules["veripeditus.framework"]] + get_games()
+                     sys.modules["veripeditus.framework"]] + get_games().values()
 
 def get_module_sources(module, patterns=_RELEVANT_PATTERNS):
     """ Get all sources for a Python module's package. """
