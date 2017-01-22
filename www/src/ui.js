@@ -28,6 +28,7 @@ UIService = function () {
         'inventory': 0,
         'profile': 1,
         'world': 2,
+        'about': 3,
     };
 
     var avatars_handler = function (data) {
