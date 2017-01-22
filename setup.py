@@ -2,7 +2,6 @@
 
 # veripeditus-server - Server component for the Veripeditus game framework
 # Copyright (C) 2016  Dominik George <nik@naturalnet.de>
-# Copyright (c) 2016  mirabilos <m@mirbsd.org>
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Affero General Public License as published
