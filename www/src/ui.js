@@ -22,15 +22,14 @@ UIService = function() {
     var self = this;
     self.name = "ui";
 
-    self.render_view = function (view) {
+    self.render_view = function (view, opts) {
         var dialog = $('div#dialog');
+        opts = opts || {};
         dialog.load("html/views/" + view + ".html", function () {
             var head = $('div#dialog h1');
-            var title = head.text();
+            opts.title = head.text();
             head.remove();
-            dialog.dialog({
-                title: title
-            });
+            dialog.dialog(opts);
 
             // UI magic
             if (view == "player") {
