@@ -174,6 +174,10 @@ UIService = function () {
                     $("#dialog-player-login").show();
                     $("#dialog-player-logout").hide();
                 }
+
+                // Load COPYING file into element
+                $("#copying").load("COPYING");
+
                 // end of “player” view
             } else if (view == 'avatars') {
                 GameData.doRequestJSON('GET', '/api/v2/gameobject/' + GameData.current_player_id + '/available_images', avatars_handler);
