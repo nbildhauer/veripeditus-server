@@ -158,7 +158,8 @@ class GameObject(Base, metaclass=_GameObjectMeta):
                 res += glob(os.path.join(data_path, self.available_images_pattern))
 
         # Get basenames of every file without extension
-        basenames = [os.path.basename(r).split(os.path.extsep)[:-1] for r in res]
+        basenames = [os.path.extsep.join(os.path.basename(r).split(os.path.extsep)[:-1])
+                     for r in res]
 
         # Return files in json format
         return json.dumps(basenames)
