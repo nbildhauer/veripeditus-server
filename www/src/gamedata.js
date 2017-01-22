@@ -351,13 +351,6 @@ $(document).bind("ajaxError", function (req, status, error) {
         var elem = $(html);
         dialog.append(elem);
         dialog.dialog({
-            position: {
-                my: 'left top',
-                at: 'left top',
-                of: window
-            },
-            width: window.innerWidth,
-            height: window.innerHeight,
             resizable: false,
             draggable: false,
             modal: true,

@@ -53,9 +53,6 @@ UIService = function () {
                         dialog.dialog("close");
                         self.render_view('player', {
                             'active_tab': profile_tabs['profile'],
-                            'width':
-                            /* restore default */
-                            300,
                         });
                     });
                 });
@@ -72,19 +69,10 @@ UIService = function () {
             head.remove();
 
             // Code to run before the dialogue is rendered (and sized)
-            if (view == 'avatars') {
-                $('#dialog-avatars').height(window.innerHeight * 1 / 3);
-            } else if (view == 'popup') {
+            if (view == 'popup') {
                 opts.title = opts.gameobject.attributes.name;
             }
 
-            opts.position = {
-                my: 'left top',
-                at: 'left top',
-                of: window
-            };
-            opts.width = window.innerWidth;
-            opts.height = window.innerHeight;
             opts.resizable = false;
             opts.draggable = false;
             opts.modal = true;
@@ -142,9 +130,7 @@ UIService = function () {
                     // Insert profile
                     $('#dialog-player-logout-tabs-profile-avatar-change').click(function () {
                         dialog.dialog("close");
-                        return self.render_view('avatars', {
-                            width: (window.innerWidth * 2 / 3),
-                        });
+                        return self.render_view('avatars');
                     });
                     $('#dialog-player-logout-tabs-profile-avatar-image').attr('src', '/api/v2/gameobject/' + GameData.current_player_id + '/image_raw/' + GameData.gameobjects[GameData.current_player_id].attributes.image)
                     //XXX FIXME: consider maximum width vs. dialogue width
