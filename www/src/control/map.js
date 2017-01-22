@@ -123,8 +123,6 @@ MapController = function () {
                         'iconUrl': '/api/v2/gameobject/' + gameobject.id + '/image_raw/' + gameobject.attributes.image,
                         'iconSize': [32, 32],
                     });
-                    markerw[2].remove();
-                    markerw[2] = icon;
                     markerw[1].setIcon(icon);
                     markerw[0] = ('' + gameobject.attributes.image);
                 }
@@ -152,7 +150,7 @@ MapController = function () {
 
                 // Add marker to map and store to known markers
                 marker.addTo(self.marker_cluster_group);
-                self.gameobject_markers[gameobject.id] = [('' + gameobject.attributes.image), marker, icon];
+                self.gameobject_markers[gameobject.id] = [('' + gameobject.attributes.image), marker, ];
                 log_debug("Created marker.");
             }
         });
