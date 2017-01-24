@@ -98,13 +98,13 @@ CamController = function () {
             image_div['transform'] = offset;
             style['transform'] = rotation;
             // Sort z-index of objects by distance
-            style['z-index'] = Math.round((MAX_DISTANCE - distance) * 100 + 1);
+            image_div['z-index'] = Math.round((self.MAX_DISTANCE - distance) * 100 + 1);
             // Unhide object
-            style['display'] = '';
+            image_div['display'] = '';
         } else {
             log_debug("Gameobject is " + distance + "m in " + bearing + "°, diff " + bearing_diff + "°.");
             // Object is behind us and not visible
-            style['display'] = 'none';
+            image_div['display'] = 'none';
         }
 
         return {
