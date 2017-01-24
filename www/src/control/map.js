@@ -87,16 +87,6 @@ MapController = function () {
     self.gameobject_markers = {};
     self.gameobject_icons = {};
 
-    // Create a markerClusterGroup for marker clustering functionality
-    self.marker_cluster_group = L.markerClusterGroup({
-        zoomToBoundsOnClick: false,
-        showCoverageOnHover: false,
-        animate: true
-    });
-
-    // Add markerClusterGroup to map as a layer
-    self.map.addLayer(self.marker_cluster_group);
-
     // Called by GameDataService on gameobjects update
     self.onUpdatedGameObjects = function () {
         if (!self.active) return;
@@ -119,7 +109,7 @@ MapController = function () {
                 new_markers[id] = marker;
                 new_icons[id] = self.gameobject_icons[id];
             } else {
-                self.marker_cluster_group.removeLayer(marker);
+                self.map.removeLayer(marker);
             }
         });
 
@@ -146,7 +136,7 @@ MapController = function () {
                     });
                 });
 
-                marker.addTo(self.marker_cluster_group);
+                marker.addTo(self.map);
                 new_markers[id] = marker;
             }
         });
