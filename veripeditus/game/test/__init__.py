@@ -31,4 +31,21 @@ class Kangoo(f.NPC):
     default_image = "avatar_kangaroo"
 
     def on_talk(self):
-        return self.say("foo")
+        if f.current_player().has_item(Apple):
+            return self.say("Boah geil lecker!")
+        else:
+            return self.say("'schwill fressen!")
+
+class Apple(f.Item):
+    spawn_osm = {"natural": "tree"}
+    default_name = "Ein Apfel"
+    default_image = "apple"
+
+    isonmap = False
+
+class AnyChild(f.NPC):
+    spawn_latlon = (51.2156678, 7.2298169)
+    default_image = "avatar_schoolkid"
+
+    def on_talk(self):
+        return self.say("I can make AR games :)!")
