@@ -80,5 +80,5 @@ The lead developers of Veripeditus are…
     You should have received a copy of the GNU Affero General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-See the [COPYING] file for the full licence, and each source file for
+See the [COPYING](COPYING) file for the full licence, and each source file for
 detailed information.
