@@ -57,4 +57,16 @@ setup(
                                       'veripeditus-standalone = veripeditus.server:server_main'
                                      ]
                  },
+    classifiers=[
+                 "Development Status :: 2 - Pre-Alpha",
+                 "Environment :: Web Environment",
+                 "Intended Audience :: Developers",
+                 "Intended Audience :: Education",
+                 "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)",
+                 "Programming Language :: Python :: 3 :: Only",
+                 "Topic :: Education",
+                 "Topic :: Games/Entertainment",
+                 "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+                 "Topic :: Software Development :: Libraries :: Application Frameworks",
+                ],
 )
