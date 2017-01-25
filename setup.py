@@ -19,12 +19,9 @@
 import os
 from setuptools import setup
 
-with open('VERSION', 'r') as f:
-    version = f.read().strip()
-
 setup(
     name='Veripeditus',
-    version=version,
+    version='1.0.0a1.dev0',
     long_description=__doc__,
     url="http://www.veripeditus.org",
     author="The Veripeditus Team and contributors",
