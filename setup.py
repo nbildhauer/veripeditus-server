@@ -27,7 +27,7 @@ setup(
     version=version,
     long_description=__doc__,
     url="http://www.veripeditus.org",
-    author="The Veripeditus Team",
+    author="The Veripeditus Team and contributors",
     author_email="team@veripeditus.org",
     packages=[
               'veripeditus.framework',
