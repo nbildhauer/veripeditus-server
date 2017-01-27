@@ -21,15 +21,39 @@
 \usepackage{graphicx}
 \usepackage{transparent}
 
-\setbeamertemplate{headline}{{\transparent{0.4}\includegraphics[trim=0 550 0 0,clip,width=\textwidth]{background}}
+\setbeamertemplate{headline}{%
+ {%
+  \transparent{0.4}%
+  \includegraphics[trim=0 550 0 0,clip,width=\textwidth]{background}%
+ }%
+ \ifnum \insertpagenumber = 1\else%
 
-\vspace{-6.5mm}\hspace*{3mm}\includegraphics[height=5mm]{artwork-logo-with-name-h}\hfill\textbf{\Large\insertinstitute}\hspace*{3mm}
+  \vspace{-6.5mm}%
+  \hspace*{3mm}%
+  \includegraphics[height=5mm]{artwork-logo-with-name-h}%
+  \hfill%
+  \textbf{\Large\insertinstitute}%
+  \hspace*{3mm}
+\fi
 }
 
-\setbeamertemplate{footline}{{\transparent{0.4}\includegraphics[trim=0 0 0 550,clip,width=\textwidth]{background}}
+\setbeamertemplate{footline}{%
+ {%
+  \transparent{0.4}%
+  \includegraphics[trim=0 0 0 550,clip,width=\textwidth]{background}%
+ }%
+ \ifnum \insertpagenumber = 1\else%
 
-\vspace{-5.5mm}\hspace*{3mm}\copyright \insertauthor\hfill{}Licenced under AGPL-3+ or CC-BY-2.0+\hfill\insertdate\hspace*{3mm}
-\vspace{2.5mm}
+  \vspace{-5.5mm}%
+  \hspace*{3mm}%
+  \copyright \insertauthor%
+  \hfill%
+  Licenced under AGPL-3+ or CC-BY-2.0+%
+  \hfill%
+  \insertdate%
+  \hspace*{3mm}
+  \vspace{2.5mm}
+ \fi%
 }
 
 \setbeamertemplate{background}{\rule{0pt}{\paperheight}
