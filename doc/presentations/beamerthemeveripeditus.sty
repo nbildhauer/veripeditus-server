@@ -21,6 +21,7 @@
 \usepackage{lmodern}%
 \usepackage{graphicx}%
 \usepackage{transparent}%
+\usepackage{xstring}
 
 % From Bernd Raichle via http://www.gust.org.pl/projects/pearls/2006p/index_html
 \def\tkifdef#1#2#3{%
@@ -63,11 +64,11 @@
 
 \def\veripeditusfoottext{%
  \hspace*{3mm}%
- \copyright \insertauthor%
+ \copyright{} \StrMid{\insertdate}{1}{4} {} \insertauthor%
  \hfill%
  Licenced under AGPL-3+ or CC-BY-2.0+%
  \hfill%
- \insertdate%
+ \insertinstitute{} • \insertdate%
  \hspace*{3mm}%
 }%
 
