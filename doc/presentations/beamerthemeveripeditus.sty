@@ -56,6 +56,11 @@
  \fi%
 }
 
-\setbeamertemplate{background}{\rule{0pt}{\paperheight}
-\hspace*{\paperwidth}
-\makebox[-3mm][r]{\transparent{0.1}\includegraphics[trim=0 -18mm 0 0,clip,width=.5\textwidth]{artwork-logo}}}
+\setbeamertemplate{background}{%
+ \rule{0pt}{\paperheight}
+ \hspace*{\paperwidth}
+ \makebox[-3mm][r]{%
+  \transparent{0.1}%
+  \includegraphics[trim=0 -18mm 0 0,clip,width=.5\textwidth]{artwork-logo}%
+ }%
+}
