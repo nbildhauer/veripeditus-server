@@ -14,7 +14,15 @@
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-%.pdf: %.tex beamerthemeveripeditus.sty background.png
+ARTWORK = artwork-logo.pdf artwork-logo-slogan.pdf
+PDF     = 2017-02-04_fosdem.pdf
+
+all: $(PDF)
+
+artwork-%.pdf: ../artwork/%.svg
+	inkscape -z -D --file="$<" --export-pdf="$@"
+
+%.pdf: %.tex beamerthemeveripeditus.sty background.png $(ARTWORK)
 	pdflatex "$<"
 	pdflatex "$<"
 
@@ -24,4 +32,4 @@ clean:
 mrproper: clean
 	rm -f *.pdf
 
-.PHONY: clean mrproper
+.PHONY: all clean mrproper
