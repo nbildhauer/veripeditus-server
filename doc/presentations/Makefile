@@ -17,7 +17,7 @@
 # Alternatively, you can use this file under GPL-2+, LGPL-2+,
 # CC-BY-4.0+, MIT or MirOS.
 
-ARTWORK = artwork-logo.pdf artwork-logo-with-name-h.pdf
+ARTWORK = artwork-logo.pdf artwork-logo-with-name-h.pdf artwork-tshirt-back.pdf artwork-tshirt-front.pdf
 PDF     = 2017-02-04_fosdem.pdf
 FORMAT ?= plain
 
@@ -37,7 +37,7 @@ endif
 all: $(PDF)
 
 artwork-%.pdf: ../artwork/%.svg
-	inkscape -z -D --file="$<" --export-pdf="$@"
+	inkscape -z -C --file="$<" --export-pdf="$@"
 
 TEX_MACRO ?= veripeditusDummy
 
