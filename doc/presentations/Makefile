@@ -19,7 +19,7 @@
 
 ARTWORK = artwork-logo.pdf artwork-logo-with-name-h.pdf
 PDF     = 2017-02-04_fosdem.pdf
-FORMAT ?= presentation
+FORMAT ?= plain
 
 ifeq ($(FORMAT), presentation)
 	TEX_MACRO = veripeditusSecondScreen

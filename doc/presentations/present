@@ -2,5 +2,5 @@
 
 pdf=${1/%.tex/.pdf}
 
-make "$1"
+make FORMAT=presentation "$1"
 dspdfviewer -d1 -t1 -w1 -p1 -s0 "$pdf"
