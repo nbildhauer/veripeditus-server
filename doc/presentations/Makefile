@@ -17,7 +17,7 @@
 # Alternatively, you can use this file under GPL-2+, LGPL-2+,
 # CC-BY-4.0+, MIT or MirOS.
 
-ARTWORK = artwork-logo.pdf artwork-logo-slogan.pdf
+ARTWORK = artwork-logo.pdf artwork-logo-with-name-h.pdf
 PDF     = 2017-02-04_fosdem.pdf
 FORMAT ?= presentation
 
