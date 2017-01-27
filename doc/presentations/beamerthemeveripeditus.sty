@@ -22,6 +22,16 @@
 \usepackage{graphicx}%
 \usepackage{transparent}%
 
+% From Bernd Raichle via http://www.gust.org.pl/projects/pearls/2006p/index_html
+\def\tkifdef#1#2#3{%
+ \begingroup \expandafter \endgroup \expandafter%
+ \ifx\csname#1\endcsname\undefined#3\else#2\fi%
+}%
+
+\tkifdef{veripeditusSecondScreen}{%
+ \setbeameroption{show notes on second screen}%
+}{}%
+
 \newcommand{\veripeditusbgimg}[2][0.4]{%
  {%
   \transparent{#1}%

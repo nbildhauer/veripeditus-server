@@ -22,7 +22,7 @@ PDF     = 2017-02-04_fosdem.pdf
 FORMAT ?= presentation
 
 ifeq ($(FORMAT), presentation)
-	BEAMER_OPTS = show notes on second screen=right
+	TEX_MACRO = veripeditusSecondScreen
 endif
 ifeq ($(FORMAT), notes)
 	BEAMER_OPTS = notes=only
@@ -31,7 +31,7 @@ ifeq ($(FORMAT), handout)
 	BEAMER_OPTS = handout
 endif
 ifeq ($(FORMAT), plain)
-	BEAMER_OPTS = notes=no
+	BEAMER_OPTS = presentation
 endif
 
 all: $(PDF)
@@ -39,10 +39,12 @@ all: $(PDF)
 artwork-%.pdf: ../artwork/%.svg
 	inkscape -z -D --file="$<" --export-pdf="$@"
 
+TEX_MACRO ?= veripeditusDummy
+
 %.pdf: %.tex beamerthemeveripeditus.sty background.png ex_schoolkid.py $(ARTWORK)
-	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
-	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
-	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\def\${TEX_MACRO}{1} \PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\def\${TEX_MACRO}{1} \PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\def\${TEX_MACRO}{1} \PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
 
 clean:
 	rm -f *.aux *.log *.nav *.out *.snm *.toc
