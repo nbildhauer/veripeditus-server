@@ -22,14 +22,16 @@ all: $(PDF)
 artwork-%.pdf: ../artwork/%.svg
 	inkscape -z -D --file="$<" --export-pdf="$@"
 
-%.pdf: %.tex beamerthemeveripeditus.sty background.png $(ARTWORK)
-	pdflatex "$<"
-	pdflatex "$<"
+%.pdf: %.tex beamerthemeveripeditus.sty background.png ex_schoolkid.py $(ARTWORK)
+	pdflatex -shell-escape "$<"
+	pdflatex -shell-escape "$<"
+	pdflatex -shell-escape "$<"
 
 clean:
 	rm -f *.aux *.log *.nav *.out *.snm *.toc
+	rm -rf _minted*
 
 mrproper: clean
-	rm -f *.pdf
+	rm -rf *.pdf
 
 .PHONY: all clean mrproper
