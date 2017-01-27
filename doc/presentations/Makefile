@@ -40,9 +40,9 @@ artwork-%.pdf: ../artwork/%.svg
 	inkscape -z -D --file="$<" --export-pdf="$@"
 
 %.pdf: %.tex beamerthemeveripeditus.sty background.png ex_schoolkid.py $(ARTWORK)
-	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
-	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
-	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\PassOptionsToClass{$(BEAMER_OPTS)}{beamer} \input{$<}'
 
 clean:
 	rm -f *.aux *.log *.nav *.out *.snm *.toc
