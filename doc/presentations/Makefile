@@ -52,3 +52,4 @@ mrproper: clean
 	rm -rf *.pdf
 
 .PHONY: all clean mrproper
+.SECONDARY: $(ARTWORK)
