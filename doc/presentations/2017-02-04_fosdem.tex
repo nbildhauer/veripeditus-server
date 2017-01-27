@@ -1,4 +1,4 @@
-\documentclass[aspectratio=43]{beamer}
+\documentclass[aspectratio=43,notes]{beamer}
 
 \usepackage{ngerman}
 \usepackage[ngerman]{babel}
@@ -22,13 +22,6 @@
 
  \section{About us}
 
- \begin{frame}
-  \frametitle{Nik}
-
-  \begin{itemize}
-   \item{blablabla}
-  \end{itemize}
- \end{frame}
 
  \begin{frame}
   \frametitle{Eike}
@@ -37,6 +30,19 @@
    \item{Eike Tim Jesinghaus}
    \item{15 year-old student from Germany}
    \item{Python programmer since the age of 11 years}
+  \end{itemize}
+ \end{frame}
+
+ \note[itemize]{
+  \item{Give the audience a feeling of what kind of person you are.}
+  \item{Do NOT excuse for this being your first talk, or any other shortcomings you fear.}
+ }
+
+ \begin{frame}
+  \frametitle{Nik}
+
+  \begin{itemize}
+   \item{blablabla}
   \end{itemize}
  \end{frame}
 
@@ -53,6 +59,11 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Give a short explanation about what Augmented Reality is in the context of Veripeditus.}
+  \item{Ask the audience a few questions, like about their experience with AR games, and so on.}
+ }
+
  \begin{frame}
   \frametitle{How it got started}
 
@@ -63,6 +74,12 @@
    \item{Many different ideas - why not make it a framework?}
   \end{itemize}
  \end{frame}
+
+ \note[itemize]{
+  \item{This is about what we thought when we started the project.}
+  \item{Tell a story about how we found Pokémon Go as popular, but non-free, and we wanted our own…}
+  \item{Maybe add one or two sentences about privacy being a major issue with popular AR games.}
+ }
 
  \begin{frame}
   \frametitle{New goals after some time}
@@ -80,12 +97,24 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Tell a story about how we tried out a lot of things, had many different ideas.}
+  \item{Tell a story about how it got more and more abstract, until we decided to make it a framework.}
+  \item{Tell a story about how we got many new ideas, and talked to many people, who had a lot of ideas on how and where Veripeditus could be useful.}
+  \item{Tell that we will have a look at the various use fields later.}
+ }
+
  \section{How to create games}
 
  \begin{frame}
   \Large
   Before we discuss more, let's look at how to make a game!
  \end{frame}
+
+ \note[itemize]{
+  \item{This is an interjection so we break lose from just story-telling.}
+  \item{The audience should feel that we now show off something.}
+ }
 
  \begin{frame}
   \frametitle{Basic workflow for making a game}
@@ -97,6 +126,11 @@
   \end{enumerate}
  \end{frame}
 
+ \note[itemize]{
+  \item{Tell a bit about every point.}
+  \item{Maybe draft a really simple and quick example for every point, but do NOT give away the example that follows!}
+ }
+
  \begin{frame}
   \frametitle{A first tiny game}
 
@@ -105,10 +139,22 @@
   }
  \end{frame}
 
+ \note[itemize]{
+  \item{Tell that this is a simple Python module.}
+  \item{Ask the audience to read it and think about it a bit.}
+  \item{Give 30 seconds or a minute time.}
+  \item{Do not explain the code at this point!}
+ }
+
  \begin{frame}
   \Large
   Quiz time: What have we got here?
  \end{frame}
+
+ \note[itemize]{
+  \item{Ask the audience to try and explain what the code we showed does.}
+  \item{Really motivate them ;)!}
+ }
 
  \begin{frame}
   \frametitle{Quiz time: What have we got here?}
@@ -129,6 +175,11 @@
   Isn't that cool?
  \end{frame}
 
+ \note[itemize]{
+  \item{Congratulate the audience for finding out what the game does so well :)!}
+  \item{Repeat all facts, amybe adding or correcting everything that might still be missing.}
+ }
+
  \begin{frame}
   \frametitle{First tiny game, in pictures}
 
@@ -136,6 +187,11 @@
   \includegraphics[width=.3\textwidth]{ex_schoolkid_shot2}\hfill
   \includegraphics[width=.3\textwidth]{ex_schoolkid_shot3}
  \end{frame}
+
+ \note[itemize]{
+  \item{Tell a story about the player walking to the location near the school, seeing the NPC, clicking it and then the talk button, and the NPC sending its response.}
+  \item{Add a note that of course, any logic involving conditions, and so on might influence the response in a real game!}
+ }
 
  \section{Framework development and design}
 
@@ -159,6 +215,11 @@
    \item{Tight and simple integration with OpenStreetMap}
   \end{itemize}
  \end{frame}
+
+ \note[itemize]{
+  \item{Elaborate on the point that the framework offers a lot of abstraction, so using it becomes easy.}
+  \item{Elaborate on the point that still, everything is plain Python, and so everything that can be done with Python can be done in a game.}
+ }
 
  \begin{frame}
   \frametitle{Technologies used}
@@ -206,6 +267,10 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Tell a bit about what you can do with every of the aspects.}
+ }
+
  \begin{frame}
   \frametitle{Many different use fields}
 
@@ -240,10 +305,20 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Give an explanation and a short example about every of the aspects.}
+  \item{Elaborate on how Veripeditus can improve computer classes, by combining gaming interests of the students with Python in a framework that can be used at all experience levels.}
+  \item{Elaborate on how AR games could be used in other subjects.}
+ }
+
  \begin{frame}
   \Large
   Spontaneous question: Any quick ideas here?
  \end{frame}
+
+ \note[itemize]{
+  \item{Motivate the audience to name any ideas they might have right now.}
+ }
 
  \begin{frame}
   \frametitle{Coming up / Roadmap}
@@ -260,6 +335,11 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Report that Veripeditus is only one year old and we first want to make basic things work very well.}
+  \item{Elanorate a bit on the list of ideas that are already on the roadmap.}
+ }
+
  \section{You and us and Veripeditus}
 
  \begin{frame}
@@ -271,6 +351,11 @@
   \end{itemize}
  \end{frame}
 
+ \note[itemize]{
+  \item{Elaborate on how we really want to make Veripeditus a good tool for everyone who has a use for AR gaming.}
+  \item{Elaborate on how we will be very happy to see all new thoughts and help out with doing some cool things with Veripeditus.}
+ }
+
  \begin{frame}
   \frametitle{What you can do for us to help us help you}
 
@@ -281,6 +366,11 @@
    \item{Tell us stories from active usage in different fields}
   \end{itemize}
  \end{frame}
+
+ \note[itemize]{
+  \item{Tell the audience that we have many ideas, but are unexperienced with some topics.}
+  \item{Ask specifically for help withthe web application, concerning JavaScript and CSS 3 3D transformations.}
+ }
 
  \begin{frame}
   \frametitle{Where to find us}
@@ -300,4 +390,9 @@
    \item{E-mail: \href{mailto:team@veripeditus.org}{\nolinkurl{team@veripeditus.org}} }
   \end{itemize}
  \end{frame}
+
+ \note[itemize]{
+  \item{Tell the audience that there will be news on the upcoming release within the near future.}
+  \item{Motivate the audience to follow us on Twitter and/or GitHub right now.}
+ }
 \end{document}
