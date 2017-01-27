@@ -13,9 +13,26 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# Alternatively, you can use this file under GPL-2+, LGPL-2+,
+# CC-BY-4.0+, MIT or MirOS.
 
 ARTWORK = artwork-logo.pdf artwork-logo-slogan.pdf
 PDF     = 2017-02-04_fosdem.pdf
+FORMAT ?= presentation
+
+ifeq ($(FORMAT), presentation)
+	BEAMER_OPTS = show notes on second screen=right
+endif
+ifeq ($(FORMAT), notes)
+	BEAMER_OPTS = notes=only
+endif
+ifeq ($(FORMAT), handout)
+	BEAMER_OPTS = handout
+endif
+ifeq ($(FORMAT), plain)
+	BEAMER_OPTS = notes=no
+endif
 
 all: $(PDF)
 
@@ -23,9 +40,9 @@ artwork-%.pdf: ../artwork/%.svg
 	inkscape -z -D --file="$<" --export-pdf="$@"
 
 %.pdf: %.tex beamerthemeveripeditus.sty background.png ex_schoolkid.py $(ARTWORK)
-	pdflatex -shell-escape "$<"
-	pdflatex -shell-escape "$<"
-	pdflatex -shell-escape "$<"
+	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
+	pdflatex -shell-escape '\PassOptionsToPackage{$(BEAMER_OPTS)}{beamer} \input{$<}'
 
 clean:
 	rm -f *.aux *.log *.nav *.out *.snm *.toc
