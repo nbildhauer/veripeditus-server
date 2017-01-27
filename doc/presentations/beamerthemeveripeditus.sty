@@ -1,5 +1,6 @@
 % veripeditus-server - Presentational material - LaTeX template
 % Copyright (C) 2017  Dominik George <nik@naturalnet.de>
+% Copyright (c) 2017  mirabilos <thorsten.glaser@teckids.org>
 %
 % This program is free software: you can redistribute it and/or modify
 % it under the terms of the GNU Affero General Public License as published
@@ -17,50 +18,74 @@
 % Alternatively, you can use this file under GPL-2+, LGPL-2+,
 % CC-BY-4.0+, MIT or MirOS.
 
-\usepackage{lmodern}
-\usepackage{graphicx}
-\usepackage{transparent}
+\usepackage{lmodern}%
+\usepackage{graphicx}%
+\usepackage{transparent}%
+
+\newcommand{\veripeditusbgimg}[2][0.4]{%
+ {%
+  \transparent{#1}%
+  \includegraphics[clip,width=\textwidth,#2]{background}%
+ }%
+}%
+
+\def\veripeditusheadtext{%
+ \hspace*{3mm}%
+ \includegraphics[height=5mm]{artwork-logo-with-name-h}%
+ \hfill%
+ \textbf{\Large\insertinstitute}%
+ \hspace*{3mm}%
+}%
 
 \setbeamertemplate{headline}{%
- {%
-  \transparent{0.4}%
-  \includegraphics[trim=0 550 0 0,clip,width=\textwidth]{background}%
- }%
- \ifnum \insertpagenumber = 1\else%
+ \ifnum \insertpagenumber = 1%
+  \mbox{\phantom{\veripeditusbgimg{trim=0 550 0 0}}}%
 
   \vspace{-6.5mm}%
-  \hspace*{3mm}%
-  \includegraphics[height=5mm]{artwork-logo-with-name-h}%
-  \hfill%
-  \textbf{\Large\insertinstitute}%
-  \hspace*{3mm}
-\fi
-}
+  \mbox{\phantom{\veripeditusheadtext}}%
+ \else%
+  \veripeditusbgimg{trim=0 550 0 0}%
+
+  \vspace{-6.5mm}%
+  \veripeditusheadtext%
+ \fi%
+}%
+
+\def\veripeditusfoottext{%
+ \hspace*{3mm}%
+ \copyright \insertauthor%
+ \hfill%
+ Licenced under AGPL-3+ or CC-BY-2.0+%
+ \hfill%
+ \insertdate%
+ \hspace*{3mm}%
+}%
 
 \setbeamertemplate{footline}{%
- {%
-  \transparent{0.4}%
-  \includegraphics[trim=0 0 0 550,clip,width=\textwidth]{background}%
- }%
- \ifnum \insertpagenumber = 1\else%
+ \ifnum \insertpagenumber = 1%
+  \mbox{\phantom{\veripeditusbgimg{trim=0 0 0 550}}}%
 
   \vspace{-5.5mm}%
-  \hspace*{3mm}%
-  \copyright \insertauthor%
-  \hfill%
-  Licenced under AGPL-3+ or CC-BY-2.0+%
-  \hfill%
-  \insertdate%
-  \hspace*{3mm}
-  \vspace{2.5mm}
+  \mbox{\phantom{\veripeditusfoottext}}%
+  \vspace{2.5mm}%
+ \else%
+  \veripeditusbgimg{trim=0 0 0 550}%
+
+  \vspace{-5.5mm}%
+  \veripeditusfoottext%
+  \vspace{2.5mm}%
  \fi%
-}
+}%
 
 \setbeamertemplate{background}{%
- \rule{0pt}{\paperheight}
- \hspace*{\paperwidth}
- \makebox[-3mm][r]{%
-  \transparent{0.1}%
-  \includegraphics[trim=0 -18mm 0 0,clip,width=.5\textwidth]{artwork-logo}%
- }%
-}
+ \ifnum \insertpagenumber = 1%
+  \veripeditusbgimg{width=\paperwidth}%
+ \else%
+  \rule{0pt}{\paperheight}%
+  \hspace*{\paperwidth}%
+  \makebox[-3mm][r]{%
+   \transparent{0.1}%
+   \includegraphics[trim=0 -18mm 0 0,clip,width=.5\textwidth]{artwork-logo}%
+  }%
+ \fi%
+}%
