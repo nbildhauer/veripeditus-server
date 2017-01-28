@@ -30,10 +30,12 @@
  \ifx\csname#1\endcsname\undefined#3\else#2\fi%
 }%
 
+% Used to inject the second screen mode from outside (e.g. Makefile)
 \tkifdef{veripeditusSecondScreen}{%
  \setbeameroption{show notes on second screen}%
 }{}%
 
+% Shortcut for including a trimmed area from background.png
 \newcommand{\veripeditusbgimg}[2][0.4]{%
  {%
   \transparent{#1}%
@@ -41,11 +43,12 @@
  }%
 }%
 
+% Definition for the text inside the headline
 \def\veripeditusheadtext{%
  \hspace*{3mm}%
- \includegraphics[height=5mm]{artwork-logo-with-name-h}%
+ \includegraphics[height=5mm]{artwork-logo-with-name-h}% left column - logo
  \hfill%
- \parbox[b]{.666\textwidth}{%
+ \parbox[b]{.666\textwidth}{% right column - title and subtitle
   \hfill\textbf{\scriptsize\inserttitle}%
 
   \hfill\insertsubtitle%
@@ -53,30 +56,32 @@
  \hspace*{3mm}%
 }%
 
+% Beamer template for headline
 \setbeamertemplate{headline}{%
- \ifnum \insertpagenumber = 1%
+ \ifnum \insertpagenumber = 1% definition for first page, which must be the title page
   \mbox{\phantom{\veripeditusbgimg{trim=0 550 0 0}}}%
 
   \vspace{-6.5mm}%
   \mbox{\phantom{\veripeditusheadtext}}%
- \else%
-  \veripeditusbgimg{trim=0 550 0 0}%
+ \else% definition for all following pages
+  \veripeditusbgimg{trim=0 550 0 0}% top 50px of background image
 
   \vspace{-6.5mm}%
-  \veripeditusheadtext%
+  \veripeditusheadtext% headline text
  \fi%
 }%
 
+% Definition for the text inside the footline
 \def\veripeditusfoottext{%
  \tiny%
  \hspace*{3mm}%
- \parbox[b]{.6\textwidth}{%
+ \parbox[b]{.6\textwidth}{% left column - copyright and licence
   © \StrMid{\insertdate}{1}{4} {} \insertauthor{}, AGPL-3+ or CC-BY-4.0+%
 
   Map imagery © OpenStreetMap and contributors, ODbL%
  }%
  \hfill%
- \parbox[b]{.3\textwidth}{%
+ \parbox[b]{.3\textwidth}{% right column - information about slides
   \hfill\insertinstitute{} {}• \insertdate%
 
   \hfill{}Slide \insertpagenumber{} {}/ \inserttotalframenumber{}%
@@ -84,38 +89,41 @@
  \hspace*{3mm}%
 }%
 
+% Beamer template for footline
 \setbeamertemplate{footline}{%
- \ifnum \insertpagenumber = 1%
+ \ifnum \insertpagenumber = 1% definition for first page, which must be the title page
+  % do render invisible foottext so length is computed correctly
   \mbox{\phantom{\veripeditusbgimg{trim=0 0 0 550}}}%
 
   \vspace{-5.5mm}%
   \mbox{\phantom{\veripeditusfoottext}}%
   \vspace{1.5mm}%
- \else%
-  \veripeditusbgimg{trim=0 0 0 550}%
+ \else% definition of all following pages
+  \veripeditusbgimg{trim=0 0 0 550}% bottom 50px of background image
 
   \vspace{-5.5mm}%
-  \veripeditusfoottext%
+  \veripeditusfoottext% footline text
   \vspace{1.5mm}%
  \fi%
 }%
 
+% Beamer template for slide background
 \setbeamertemplate{background}{%
- \ifnum \insertpagenumber = 1%
-  \veripeditusbgimg{width=\paperwidth}%
- \else%
-  \rule{0pt}{\paperheight}%
-  \hspace*{\paperwidth}%
-  \makebox[-3mm][r]{%
+ \ifnum \insertpagenumber = 1% definition for first page, which must be the title page
+  \veripeditusbgimg{width=\paperwidth}% full background image
+ \else% definition for all following pages
+  \rule{0pt}{\paperheight}% force full height
+  \hspace*{\paperwidth}% force full width
+  \makebox[-3mm][r]{% create box to position background image at bottom right
    \transparent{0.1}%
    \includegraphics[trim=0 -18mm 0 0,clip,width=.5\textwidth]{artwork-logo}%
   }%
  \fi%
 }%
 
+% Beamer template for title page
 \setbeamertemplate{title page}{%
  \begin{minipage}[b][.45\textheight][c]{.75\textwidth}% upper both
-  %\centering%
   \textbf{\large\inserttitle}\\
   {\normalsize\insertsubtitle}\\[\baselineskip]
   {\small\insertauthor}\\
@@ -131,8 +139,10 @@
  \end{minipage}%
 }%
 
+% Disable all navigation symbols
 \setbeamertemplate{navigation symbols}{}%
 
+% Shortcut for link to slide sources
 \newcommand{\insertsourcelink}{%
  \url{https://github.com/Veripeditus/veripeditus-server/tree/master/doc/presentations}%
 }%
