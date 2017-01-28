@@ -68,12 +68,19 @@
 }%
 
 \def\veripeditusfoottext{%
+ \tiny%
  \hspace*{3mm}%
- \copyright{} \StrMid{\insertdate}{1}{4} {} \insertauthor%
+ \parbox[b]{.6\textwidth}{%
+  © \StrMid{\insertdate}{1}{4} {} \insertauthor{}, AGPL-3+ or CC-BY-4.0+%
+
+  Map imagery © OpenStreetMap and contributors, ODbL%
+ }%
  \hfill%
- Licenced under AGPL-3+ or CC-BY-2.0+%
- \hfill%
- \insertinstitute{} • \insertdate%
+ \parbox[b]{.3\textwidth}{%
+  \hfill\insertinstitute{} {}• \insertdate%
+
+  \hfill{}Slide \insertpagenumber{} {}/ \inserttotalframenumber{}%
+ }%
  \hspace*{3mm}%
 }%
 
@@ -83,13 +90,13 @@
 
   \vspace{-5.5mm}%
   \mbox{\phantom{\veripeditusfoottext}}%
-  \vspace{2.5mm}%
+  \vspace{1.5mm}%
  \else%
   \veripeditusbgimg{trim=0 0 0 550}%
 
   \vspace{-5.5mm}%
   \veripeditusfoottext%
-  \vspace{2.5mm}%
+  \vspace{1.5mm}%
  \fi%
 }%
 
