@@ -82,3 +82,6 @@ The lead developers of Veripeditus are…
 
 See the [COPYING](COPYING) file for the full licence, and each source file for
 detailed information.
+
+Artwork may be dual-licensed under CC-BY-4.0+, see relevant directories
+and files for details.
