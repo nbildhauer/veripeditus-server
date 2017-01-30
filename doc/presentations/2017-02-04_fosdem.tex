@@ -115,7 +115,7 @@
  \note[itemize]{
   \item{Give a short explanation about what Augmented Reality is in the context of Veripeditus.}
   \item{Veripeditus is a framework for the creation of AR-games. AR stands for "augmented reality" and is between real life and virtual reality. It expands the real world with virtual, location-bound features.}
-  \item{Note that "easy" means that we are wearig a complete game on our shirts ;).}}
+  \item{Note that "easy" means that we are wearig a complete game on our shirts ;).}
   \item{Ask the audience a few questions, like about their experience with AR games, and so on.}
  }
 
@@ -328,7 +328,7 @@
     \end{itemize}
    }
    \item{Backend technology with advanced API}
-   \item{Reference web application for gameplay
+   \item{(Rudimentary) reference web application for gameplay
     \begin{itemize}
      \item{Map view}
      \item{Camera / 3D view}
@@ -340,6 +340,16 @@
 
  \note[itemize]{
   \item{Tell a bit about what you can do with every of the aspects.}
+  \item{Describe the game objects
+   \begin{itemize}
+    \item{Player - has an inventory, game can check on its contents}
+    \item{Item - can be collected and used to influence game logic}
+    \item{NPC - Non-player character, can change behaviour in complex ways depending on game state}
+    \item{Location - trigger location-dependent events in backend}
+   \end{itemize}
+  }
+  \item{Game objects can be bound to either geographic coordinates or arbitrary OSM tags.}
+  \item{Debugging mode has a test utility (set player position and heading, WASD movements in camera view)}
  }
 
  \begin{frame}
